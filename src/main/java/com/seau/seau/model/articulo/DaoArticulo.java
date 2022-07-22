@@ -66,7 +66,7 @@ public class DaoArticulo {
     public boolean save(BeanArticulo articulo){
         try {
             conn = new MYSQLConnection().getConnection();
-            String query = "INSERT INTO articulo" + "(name, dec1, dec2, categoria, imagen)" + "VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO articulo" + "(nombre, dec1, dec2, categoria, imagen)" + "VALUES (?,?,?,?,?)";
             pstm = conn.prepareStatement(query);
             pstm.setString(1,articulo.getNombre());
             pstm.setString(2,articulo.getDec1());

@@ -79,7 +79,7 @@
                     <c:forEach var="descuento" items="${descuentos}" varStatus="status">
                         <c:forEach var="stock" items="${stocks}" varStatus="status2">
                             <c:choose>
-                                <c:when test='${stock.ID_stk == descuento.ID_det}'>
+                                <c:when test='${stock.ID_stk == descuento.fk_stock}'>
                                     <%
                                         ServiceStock serviceStock= new ServiceStock();
                                         List<BeanStock> stocks = new ArrayList<>();
@@ -90,7 +90,7 @@
                                         stock.getFk_articulo();
 
                                     %>
-                                    <div class="carousel-item">
+                        <a href="producto?id=<c:out value="${stock.fk_articulo}"/>&stk=<c:out value="${stock.ID_stk}"/>"><div class="carousel-item">
                                         <img src="https://i.ibb.co/NKvbmf5/clairo.jpg" class="d-block w-100" alt="..." height="400px">
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5 style="color: red;" class="text-end"><del>$<c:out value="${stock.precio}"/></del></h5>
@@ -101,6 +101,7 @@
                                                         <h5 class="text-start"><c:out value="${articulo.nombre}"/></h5>
                                                         <p class="text-start"><c:out value="${stock.talla}"/>  <c:out value="${stock.color}"/></p>
                                                         <p class="text-start"><c:out value="${articulo.dec1}"/></p>
+
                                                     </c:when>
                                                     <c:otherwise>
 
@@ -108,7 +109,7 @@
                                                 </c:choose>
                                             </c:forEach>
                                         </div>
-                                    </div>
+                                    </div></a>
 
                                 </c:when>
                                 <c:otherwise>

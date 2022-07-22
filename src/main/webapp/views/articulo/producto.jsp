@@ -34,35 +34,56 @@
 
 
 
-
     long existencia = 0;
-    int magia = 0 , contador = 0;
-    double precio = 0;
-    String imagen = "";
+    int magia = 0 , contador = 0, id=0, col=0;
+    double precio = 0, desc = 0;
+    String imagen = "", color = "", talla = "";
 
     descuento=descuentos.get(1);
 
     if (request.getParameter("stk")!=null){
+        col=1;
+        id = Integer.parseInt(request.getParameter("id"));
+
         int stk=Integer.parseInt(request.getParameter("stk"));
-        stock=stocks.get(stk);
+        stock=stocks.get(stk-1);
         imagen = stock.getImagen();
         precio = stock.getPrecio();
         existencia = stock.getStock();
+        color = stock.getColor();
+        talla = stock.getTalla();
+        for (BeanDescuento des: descuentos){
+            if (des.getFk_stock() == stk){
+                contador = contador + 1;
+                desc = des.getPor_descuento();
+                break;
+            }
+        }
     }else if(request.getParameter("stk")==null && request.getParameter("color")==null){
-        int id=Integer.parseInt(request.getParameter("id"));
-        articulo = articulos.get(id);
+        id=Integer.parseInt(request.getParameter("id"));
+        articulo = articulos.get(id-1);
         imagen = articulo.getImagen();
         precio = 0;
         existencia = 0;
     }else if(request.getParameter("color")!=null && request.getParameter("talla")!=null){
-        String color = request.getParameter("color"), talla = request.getParameter("talla");
+        col=1;
+        color = request.getParameter("color"); talla = request.getParameter("talla");
+        id = Integer.parseInt(request.getParameter("id"));
         for( BeanStock ola : stocks) {
-            if (Objects.equals(ola.getColor(), color) && Objects.equals(ola.getTalla(), talla)){
+            if (Objects.equals(ola.getColor(), color) && Objects.equals(ola.getTalla(), talla) && ola.getFk_articulo() == id){
                 magia = Math.toIntExact(ola.getID_stk());
-                stock=stocks.get(magia);
+                stock=stocks.get(magia-1);
                 imagen = stock.getImagen();
                 precio = stock.getPrecio();
                 existencia = stock.getStock();
+                break;
+            }
+        }
+        for (BeanDescuento des: descuentos){
+            if (des.getFk_stock() == magia){
+                contador = contador + 1;
+                desc = des.getPor_descuento();
+                break;
             }
         }
     }
@@ -104,7 +125,7 @@
     <!-- producto -->
     <div class="row my-3">
         <div class="col-1"></div>
-        <div class="col-4 text-center py-3 px-5" style="background-color: grey;">
+        <div class="col-4 text-center py-3 px-5" style="background-color: black;">
             <img src="<% out.print(imagen); %>" alt="producto" style="height: 20em; margin-bottom: 1em;">
             <img src="imagenes/rojo.png" alt="color" class="colores">
             <img src="imagenes/amarillo.png" alt="color" class="colores">
@@ -121,15 +142,26 @@
                     <h1><c:out value="${articulo.nombre}"/></h1>
                 </c:if>
             </c:forEach>
-
-            <h3>$ <% out.print(precio); %></h3>
+            <h4 class="text-end" style="color: red"><del><% if (contador!=0){
+                 out.print(precio);
+            }%></del></h4>
+            <h3>$ <% if (contador!=0){
+                out.print(precio-(precio*desc/100));
+            }else{
+                out.print(precio);
+            }
+            %></h3>
+            <h4><% if (col!=0){
+                out.print("Color: " + color + " Talla: " + talla);
+            }
+            %></h4>
             <br>
             <c:forEach var="articulo" items="${articulos}" varStatus="status">
                 <c:if test="${articulo.ID==param.id}">
                     <p><c:out value="${articulo.dec2}"/></p>
                 </c:if>
             </c:forEach>
-            <form action="post" style="margin-bottom: 2em;">
+            <form action="producto" style="margin-bottom: 2em;">
                 <select name="talla" style="margin-right: 1em;">
                     <c:forEach var="stock" items="${stocks}" varStatus="status">
                         <c:if test="${stock.fk_articulo==param.id}">
@@ -147,11 +179,11 @@
                     </c:forEach>
 
                 </select>
-
+                <input value="<% out.print(id); %>" name="id" type="hidden">
                 <button class="btn btn-outline-dark" type="submit">Verificar</button>
             </form>
-            <h6>Existencia: <%if (request.getParameter("color") == null) {
-                out.print("XXXXX");
+            <h6>Existencia: <%if (contador!=0) {
+                out.print(existencia + " Ultimas piezas");
             }else{out.print(existencia);
             } %></h6>
         </div>
