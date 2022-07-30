@@ -43,7 +43,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-12">
-                <form action="admin" method="post" novalidate class="needs-validation">
+                <form action="addArt" method="post" novalidate class="needs-validation">
                   <div class="form-group mb-3">
                     <div class="row">
                       <div class="col">

@@ -12,7 +12,7 @@
 <head>
 
     <title>Login</title>
-    <link rel="stylesheet" href="estilos.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/views/todo/estilos.css" type="text/css">
 
@@ -47,7 +47,7 @@
                             ARTICULOS
                         </div>
                         <div class="col-6 text-end">
-                            <a href="addArt?u=<c:out value="${param.user}"/>&p=<c:out value="${param.pass}"/>" class="btn btn-outline-primary">INSERT</a>
+                            <a href="addArt" class="btn btn-outline-primary">INSERT</a>
                         </div>
                     </div>
                 </div>
@@ -62,6 +62,7 @@
                         <th>Imagen URL</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
+                        <th>Insertar Stock</th>
                         </thead>
                         <tbody>
                         <c:forEach var="articulo" items="${articulos}" varStatus="status">
@@ -90,6 +91,9 @@
                                 <td>
                                     <a href="" class="btn btn-danger">DELETE</a>
                                 </td>
+                                <td>
+                                    <a href="addStock?ID=${articulo.ID}" class="btn btn-primary">INSERT</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -108,7 +112,7 @@
                             STOCK
                         </div>
                         <div class="col-6 text-end">
-                            <a href="?u=<c:out value="${param.user}"/>&p=<c:out value="${param.pass}"/>" class="btn btn-outline-primary">INSERT</a>
+
                         </div>
                     </div>
                 </div>
@@ -124,6 +128,7 @@
                         <th>Imagen URL</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
+                        <th>Insertar Descuento</th>
                         </thead>
                         <tbody>
                         <c:forEach var="stock" items="${stocks}" varStatus="status">
@@ -155,6 +160,9 @@
                                 <td>
                                     <a href="" class="btn btn-danger">DELETE</a>
                                 </td>
+                                <td class="text-center">
+                                    <a href="addDesc?ID_stk=${stock.ID_stk}" class="btn btn-primary">INSERT</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -173,7 +181,7 @@
                             DESCUENTOS
                         </div>
                         <div class="col-6 text-end">
-                            <a href="?u=<c:out value="${param.user}"/>&p=<c:out value="${param.pass}"/>" class="btn btn-outline-primary">INSERT</a>
+
                         </div>
                     </div>
                 </div>

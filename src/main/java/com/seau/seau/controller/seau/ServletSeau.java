@@ -2,6 +2,7 @@ package com.seau.seau.controller.seau;
 
 import com.seau.seau.model.administrador.BeanAdministrador;
 import com.seau.seau.model.articulo.BeanArticulo;
+import com.seau.seau.model.stock.BeanStock;
 import com.seau.seau.service.administrador.ServiceAdministrador;
 import com.seau.seau.service.articulo.ServiceArticulo;
 import com.seau.seau.service.descuento.ServiceDescuento;
@@ -61,8 +62,6 @@ public class ServletSeau extends HttpServlet {
                     urlRedirect = "/views/articulo/producto.jsp";
                     break;
                 case "/login":
-
-
                     urlRedirect = "/views/articulo/login.jsp";
                     break;
                 case "/admin":
@@ -85,6 +84,9 @@ public class ServletSeau extends HttpServlet {
                 case "/addArt":
                     urlRedirect = "/views/articulo/addArt.jsp";
                     break;
+                case "/addStock":
+                    urlRedirect = "/views/articulo/addStock.jsp";
+                    break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     request.setAttribute("stocks", serviceStock.getAll());
@@ -103,7 +105,7 @@ public class ServletSeau extends HttpServlet {
         response.setContentType("text/html");
         action = request.getServletPath();
         switch(action){
-            case "/admin":
+            case "/addArt":
                 String nombre = request.getParameter("nombre");
                 String dec1 = request.getParameter("dec1");
                 String dec2 = request.getParameter("dec2");
@@ -117,9 +119,29 @@ public class ServletSeau extends HttpServlet {
                 articulo.setCategoria(categoria);
                 articulo.setImagen(imagen);
                 ResultAction result = serviceArticulo.save(articulo);
-                urlRedirect = "/login?result="+
+                urlRedirect = "/admin?result="+
                         result.isResult()+"&message="+result.getMessage()
                         +"&status="+result.getStatus();
+                break;
+            case "/addStock":
+                String talla = request.getParameter("talla");
+                String color = request.getParameter("color");
+                String stock = request.getParameter("stock");
+                String precio = request.getParameter("precio");
+                String fk_articulo = request.getParameter("fk_articulo");
+                String imagen2 = request.getParameter("imagen");
+
+                BeanStock stock2 = new BeanStock();
+                stock2.setTalla(talla);
+                stock2.setColor(color);
+                stock2.setStock(Integer.parseInt(stock));
+                stock2.setPrecio(Double.parseDouble(precio));
+                stock2.setFk_articulo(Long.parseLong(fk_articulo));
+                stock2.setImagen(imagen2);
+                ResultAction result2 = serviceStock.save(stock2);
+                urlRedirect = "/admin?result="+
+                        result2.isResult()+"&message="+result2.getMessage()
+                        +"&status="+result2.getStatus();
                 break;
             default:
                 urlRedirect = "/views/articulo/login.jsp";
