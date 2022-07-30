@@ -2,6 +2,7 @@ package com.seau.seau.controller.seau;
 
 import com.seau.seau.model.administrador.BeanAdministrador;
 import com.seau.seau.model.articulo.BeanArticulo;
+import com.seau.seau.model.descuento.BeanDescuento;
 import com.seau.seau.model.stock.BeanStock;
 import com.seau.seau.service.administrador.ServiceAdministrador;
 import com.seau.seau.service.articulo.ServiceArticulo;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +32,10 @@ import java.util.logging.Logger;
                 "/addDesc",
                 "/modArt",
                 "/modStock",
-                "/modDesc"
+                "/modDesc",
+                "/delArt",
+                "/delStock",
+                "/delDesc"
         })
 
 public class ServletSeau extends HttpServlet {
@@ -87,6 +93,9 @@ public class ServletSeau extends HttpServlet {
                 case "/addStock":
                     urlRedirect = "/views/articulo/addStock.jsp";
                     break;
+                case "/addDesc":
+                    urlRedirect = "/views/articulo/addDesc.jsp";
+                    break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     request.setAttribute("stocks", serviceStock.getAll());
@@ -142,6 +151,30 @@ public class ServletSeau extends HttpServlet {
                 urlRedirect = "/admin?result="+
                         result2.isResult()+"&message="+result2.getMessage()
                         +"&status="+result2.getStatus();
+                break;
+            case "/addDesc":
+                String fecha_fin = request.getParameter("fecha_fin");
+                String por_descuento = request.getParameter("por_descuento");
+                String fk_stock = request.getParameter("fk_stock");
+
+                BeanDescuento descuento2 = new BeanDescuento();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                java.sql.Date fechaConvertida=null;
+
+                try {
+                    Date parsed =  dateFormat.parse(fecha_fin);
+                    fechaConvertida = new java.sql.Date(parsed.getTime());
+                } catch(Exception e) {
+                    System.out.println("Error occurred"+ e.getMessage());
+                }
+                descuento2.setFecha_fin(fechaConvertida);
+                descuento2.setPor_descuento(Long.parseLong(por_descuento));
+                descuento2.setFk_stock(Long.parseLong(fk_stock));
+                ResultAction result3 = serviceDescuento.save(descuento2);
+                urlRedirect = "/admin?result="+
+                        result3.isResult()+"&message="+result3.getMessage()
+                        +"&status="+result3.getStatus();
                 break;
             default:
                 urlRedirect = "/views/articulo/login.jsp";

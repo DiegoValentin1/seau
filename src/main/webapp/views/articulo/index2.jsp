@@ -138,12 +138,12 @@
         </div>
     </div>
     <div class="row my-2 px-5 py-5 justify-content-center">
-        <c:forEach var="articulo" items="${articulos}" varStatus="status">
+        <c:forEach begin="0" end="5" var="articulo" items="${articulos}" varStatus="status">
             <div class="col-3 mx-5" id="">
                 <a href="producto?id=<c:out value="${articulo.ID}"/>">
-                <article class="card mx-1 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat;">
+                <article class="card mx-1 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat; background-size: cover">
                     <div class="card_content">
-                        <h3 class="card_title"><c:out value="${articulo.nombre}"/></h3>
+                        <h4 class="card_title"><c:out value="${articulo.nombre}"/></h4>
                         <span class="card_subtitle"></span>
                         <p class="card_description"><c:out value="${articulo.dec1}"/></p>
                     </div>

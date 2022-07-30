@@ -92,7 +92,7 @@
                                     <a href="" class="btn btn-danger">DELETE</a>
                                 </td>
                                 <td>
-                                    <a href="addStock?ID=${articulo.ID}" class="btn btn-primary">INSERT</a>
+                                    <a href="addStock?ID=${articulo.ID}&n=${articulo.nombre}" class="btn btn-primary">INSERT</a>
                                 </td>
                             </tr>
                         </c:forEach>

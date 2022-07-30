@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: gupuy
-  Date: 29/07/2022
-  Time: 11:48 p. m.
+  Date: 30/07/2022
+  Time: 02:21 p. m.
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
 
-    <title>Agregar Stock</title>
+    <title>Agregar Descuento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/views/todo/estilos.css" type="text/css">
 </head>
@@ -39,43 +39,24 @@
     <div class="row mt-3">
         <div class="col-12">
             <div class="card">
-                <div class="card-header"><p class="text-center">REGISTRO DE STOCK DEL ARTICULO</p> <h2 class="text-center" style="color: #55C193;">${param.n}</h2>
+                <div class="card-header"><p class="text-center">REGISTRO DE DESCUENTO DEL STOCK ID</p> <h2 class="text-center" style="color: #55C193;">${param.ID_stk}</h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <form action="addStock" method="post" novalidate class="needs-validation">
+                                <form action="addDesc" method="post" novalidate class="needs-validation">
                                     <div class="form-group mb-3">
                                         <div class="row">
                                             <div class="col">
-                                                <label for="name">Talla</label>
-                                                <input type="text" id="name" name="talla" class="form-control" required/>
+                                                <label for="min">Fecha Fin</label>
+                                                <input type="date"  id="min" name="fecha_fin" class="form-control min-today"
+                                                       required data-date-split-input="true"/>
                                                 <div class="invalid-feedback">
 
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label for="health">Color</label>
-                                                <input type="text" id="health" name="color" class="form-control"
-                                                       required/>
-                                                <div class="invalid-feedback">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="power">Stock</label>
-                                                <input type="number" min="0" id="power" name="stock" class="form-control"
-                                                       required/>
-                                                <div class="invalid-feedback">
-
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label for="weight">Precio</label>
-                                                <input type="text" min="0" pattern="^[0-9]+(.[0-9]+)?$" id="weight" name="precio" class="form-control"
+                                                <label for="weight">Porcentaje Descuento</label>
+                                                <input type="number" min="0" max="100"  id="weight" name="por_descuento" class="form-control"
                                                        required/>
                                                 <div class="invalid-feedback">
 
@@ -87,22 +68,15 @@
                                     <div class="form-group mb-3">
                                         <div class="row">
                                             <div class="col">
-                                                <label for="height">ID Articulo</label>
-                                                <input type="number" id="height" name="fk_articulo2" class="form-control"
-                                                       required disabled value="${param.ID}"/>
-                                                <input type="hidden" name="fk_articulo" value="${param.ID}">
+                                                <label for="height">ID Stock</label>
+                                                <input type="number" id="height" name="fk_stock2" class="form-control"
+                                                       required disabled value="${param.ID_stk}"/>
                                                 <div class="invalid-feedback">
 
                                                 </div>
+                                                <input type="hidden" name="fk_stock" value="${param.ID_stk}">
                                             </div>
-                                            <div class="col">
-                                                <label for="height2">Imagen URL</label>
-                                                <input type="text" id="height2" name="imagen" class="form-control"
-                                                       required/>
-                                                <div class="invalid-feedback">
 
-                                                </div>
-                                            </div>
 
                                         </div>
                                     </div>
@@ -146,6 +120,7 @@
                 }, false)
             })
     })()
+    document.getElementById('min').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
 </script>
 </body>
 </html>
