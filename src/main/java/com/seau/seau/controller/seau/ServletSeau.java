@@ -80,6 +80,8 @@ public class ServletSeau extends HttpServlet {
                             request.setAttribute("stocks", serviceStock.getAll());
                             urlRedirect = "/views/articulo/admin.jsp";
                             break;
+                        }else{
+                            urlRedirect = "/views/articulo/login.jsp";
                         }
                     }
                     break;
@@ -88,7 +90,7 @@ public class ServletSeau extends HttpServlet {
                     break;
                 default:
                     request.setAttribute("articulos",serviceArticulo.getAll());
-                    urlRedirect = "/home";
+                    urlRedirect = "/views/articulo/home.jsp";
                     break;
             }
             request.getRequestDispatcher(urlRedirect).forward(request, response);
@@ -121,7 +123,7 @@ public class ServletSeau extends HttpServlet {
                         +"&status="+result.getStatus();
                 break;
             default:
-                urlRedirect = "/login";
+                urlRedirect = "/views/articulo/login.jsp";
                 break;
         }
         response.sendRedirect(request.getContextPath() + urlRedirect);
