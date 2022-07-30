@@ -35,8 +35,8 @@ public class DaoStock {
                 stock.setFk_articulo(rs.getLong("fk_articulo"));
                 stock.setImagen(rs.getString("imagen"));
                 stocks.add(stock);
-                System.out.println("Hola desdde Stock");
-                System.out.println(stock.getStock());
+                System.out.println("ID STK");
+                System.out.println(stock.getID_stk());
             }
         } catch (SQLException e){
             Logger.getLogger(DaoStock.class.getName())
@@ -85,6 +85,45 @@ public class DaoStock {
                     .log(Level.SEVERE, "Error save", e);
             return false;
         }finally {
+            closeConnections();
+        }
+    }
+
+    public boolean update(BeanStock stock) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "UPDATE stock SET talla = ?, color = ?, stock = ?," +
+                    "precio = ?, fk_articulo = ?, imagen = ? WHERE ID_stk = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, stock.getTalla());
+            pstm.setString(2, stock.getColor());
+            pstm.setLong(3, stock.getStock());
+            pstm.setDouble(4, stock.getPrecio());
+            pstm.setLong(5, stock.getFk_articulo());
+            pstm.setString(6, stock.getImagen());
+            pstm.setLong(7, stock.getID_stk());
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoStock.class.getName())
+                    .log(Level.SEVERE, "Error update", e);
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
+
+    public boolean delete(Long ID_stk) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "DELETE FROM stock WHERE ID_stk = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1, ID_stk);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoStock.class.getName())
+                    .log(Level.SEVERE, "Error delete method");
+            return false;
+        } finally {
             closeConnections();
         }
     }

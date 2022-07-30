@@ -110,7 +110,7 @@
                 </div>
                 <div class=" col-8" id="navbarSupportedContent">
 
-                    <form class="d-flex">
+                    <form class="d-flex" style="margin: 0">
                         <input class="form-control me-2" style="width: 100%; margin: 0;" type="search" placeholder="Pantalon azul" aria-label="Search">
                         <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                     </form>
@@ -127,10 +127,7 @@
         <div class="col-1"></div>
         <div class="col-4 text-center py-3 px-5" style="background-color: black;">
             <img src="<% out.print(imagen); %>" alt="producto" style="height: 20em; margin-bottom: 1em;">
-            <img src="imagenes/rojo.png" alt="color" class="colores">
-            <img src="imagenes/amarillo.png" alt="color" class="colores">
-            <img src="imagenes/verde.jpg" alt="color" class="colores">
-            <img src="imagenes/azul.webp" alt="color" class="colores">
+
 
 
         </div>

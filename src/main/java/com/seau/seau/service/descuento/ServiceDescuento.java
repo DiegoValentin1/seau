@@ -28,4 +28,38 @@ public class ServiceDescuento {
         }
         return result;
     }
+
+    public ResultAction update(BeanDescuento descuento){
+        ResultAction result = new ResultAction();
+        if (daoDescuento.update(descuento)){
+            result.setStatus(200);
+            result.setResult(false);
+            result.setMessage("Descuento actualizado correctamente");
+        }else{
+            result.setStatus(400);
+            result.setResult(true);
+            result.setMessage("Ocurrió un error");
+        }
+        return result;
+    }
+
+    public ResultAction delete(String id){
+        ResultAction result = new ResultAction();
+        try{
+            if (daoDescuento.delete(Long.parseLong(id))){
+                result.setStatus(200);
+                result.setResult(false);
+                result.setMessage("Pokemon eliminado correctamente");
+            }else{
+                result.setStatus(400);
+                result.setResult(true);
+                result.setMessage("Ocurrió un error");
+            }
+        }catch (NumberFormatException e){
+            result.setStatus(400);
+            result.setResult(true);
+            result.setMessage("Ocurrió un error");
+        }
+        return result;
+    }
 }

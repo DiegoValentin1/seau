@@ -83,4 +83,42 @@ public class DaoArticulo {
             closeConnections();
         }
     }
+
+    public boolean update(BeanArticulo articulo) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "UPDATE articulo SET nombre = ?, dec1 = ?, dec2 = ?," +
+                    "categoria = ?, imagen = ? WHERE id = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, articulo.getNombre());
+            pstm.setString(2, articulo.getDec1());
+            pstm.setString(3, articulo.getDec2());
+            pstm.setString(4, articulo.getCategoria());
+            pstm.setString(5, articulo.getImagen());
+            pstm.setLong(6, articulo.getID());
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoArticulo.class.getName())
+                    .log(Level.SEVERE, "Error update", e);
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
+
+    public boolean delete(Long ID) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "DELETE FROM articulo WHERE ID = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1, ID);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoArticulo.class.getName())
+                    .log(Level.SEVERE, "Error delete method");
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
 }

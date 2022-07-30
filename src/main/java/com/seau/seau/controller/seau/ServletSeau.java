@@ -23,15 +23,12 @@ import java.util.logging.Logger;
         urlPatterns = {
                 "/home",
                 "/producto",
-                "/login",
-                "/admin",
                 "/addArt",
                 "/addStock",
                 "/addDesc",
                 "/modArt",
                 "/modStock",
-                "/modDesc",
-                ""
+                "/modDesc"
         })
 
 public class ServletSeau extends HttpServlet {
@@ -89,8 +86,10 @@ public class ServletSeau extends HttpServlet {
                     urlRedirect = "/views/articulo/addArt.jsp";
                     break;
                 default:
+                    request.setAttribute("descuentos", serviceDescuento.getAll());
+                    request.setAttribute("stocks", serviceStock.getAll());
                     request.setAttribute("articulos",serviceArticulo.getAll());
-                    urlRedirect = "/views/articulo/home.jsp";
+                    urlRedirect = "/views/articulo/index2.jsp";
                     break;
             }
             request.getRequestDispatcher(urlRedirect).forward(request, response);

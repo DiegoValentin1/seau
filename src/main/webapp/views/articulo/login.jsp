@@ -46,15 +46,15 @@
             <div class="text-center">
                 <h1>Iniciar sesión</h1>
             </div>
-            <form action="admin">
+            <form action="login" method="post">
                 <div class="mb-3 mt-5">
                     <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" name="user" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text"></div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="pass">
+                    <input type="password" class="form-control" name="password">
                 </div>
                 <div class="text-center mb-5">
                     <button type="submit" class="btn btn-success">Continuar</button>

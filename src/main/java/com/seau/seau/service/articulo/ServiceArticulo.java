@@ -26,4 +26,38 @@ public class ServiceArticulo {
         }
         return result;
     }
+
+    public ResultAction update(BeanArticulo articulo){
+        ResultAction result = new ResultAction();
+        if (daoArticulo.update(articulo)){
+            result.setStatus(200);
+            result.setResult(false);
+            result.setMessage("Articulo actualizado correctamente");
+        }else{
+            result.setStatus(400);
+            result.setResult(true);
+            result.setMessage("Ocurrió un error");
+        }
+        return result;
+    }
+
+    public ResultAction delete(String id){
+        ResultAction result = new ResultAction();
+        try{
+            if (daoArticulo.delete(Long.parseLong(id))){
+                result.setStatus(200);
+                result.setResult(false);
+                result.setMessage("Articulo eliminado correctamente");
+            }else{
+                result.setStatus(400);
+                result.setResult(true);
+                result.setMessage("Ocurrió un error");
+            }
+        }catch (NumberFormatException e){
+            result.setStatus(400);
+            result.setResult(true);
+            result.setMessage("Ocurrió un error");
+        }
+        return result;
+    }
 }

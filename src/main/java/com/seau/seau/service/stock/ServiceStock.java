@@ -28,4 +28,38 @@ public class ServiceStock {
         }
         return result;
     }
+
+    public ResultAction update(BeanStock stock){
+        ResultAction result = new ResultAction();
+        if (daoStock.update(stock)){
+            result.setStatus(200);
+            result.setResult(false);
+            result.setMessage("Stock actualizado correctamente");
+        }else{
+            result.setStatus(400);
+            result.setResult(true);
+            result.setMessage("Ocurrió un error");
+        }
+        return result;
+    }
+
+    public ResultAction delete(String id){
+        ResultAction result = new ResultAction();
+        try{
+            if (daoStock.delete(Long.parseLong(id))){
+                result.setStatus(200);
+                result.setResult(false);
+                result.setMessage("Stock eliminado correctamente");
+            }else{
+                result.setStatus(400);
+                result.setResult(true);
+                result.setMessage("Ocurrió un error");
+            }
+        }catch (NumberFormatException e){
+            result.setStatus(400);
+            result.setResult(true);
+            result.setMessage("Ocurrió un error");
+        }
+        return result;
+    }
 }

@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/views/todo/estilos2.css" type="text/css">
 </head>
 <body>
-<div class="container-fluid";>
+<div class="container-fluid">
     <div class="row" style="background-color: #002B5E;">
         <div class="">
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #002B5E;">
@@ -31,9 +31,9 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                    <div class=" col-8" id="navbarSupportedContent">
+                    <div class=" col-8" id="navbarSupportedContent" style="">
 
-                        <form class="d-flex">
+                        <form class="d-flex" style="margin: 0">
                             <input class="form-control me-2" style="width: 100%; margin: 0;" type="search" placeholder="Pantalon azul" aria-label="Search">
                             <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                         </form>
@@ -90,11 +90,11 @@
                                         stock.getFk_articulo();
 
                                     %>
-                        <a href="producto?id=<c:out value="${stock.fk_articulo}"/>&stk=<c:out value="${stock.ID_stk}"/>"><div class="carousel-item">
+                                    <div class="carousel-item">
                                         <img src="https://i.ibb.co/NKvbmf5/clairo.jpg" class="d-block w-100" alt="..." height="400px">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <a href="producto?id=<c:out value="${stock.fk_articulo}"/>&stk=<c:out value="${stock.ID_stk}"/>"><div class="carousel-caption d-none d-md-block">
                                             <h5 style="color: red;" class="text-end"><del>$<c:out value="${stock.precio}"/></del></h5>
-                                            <h5 class="text-start">$<c:out value="${stock.precio*descuento.por_descuento/100}"/></h5>
+                                            <h5 class="text-start">$<c:out value="${stock.precio-(stock.precio*descuento.por_descuento/100)}"/></h5>
                                             <c:forEach var="articulo" items="${articulos}" varStatus="status3">
                                                 <c:choose>
                                                     <c:when test='${stock.fk_articulo == articulo.ID}'>
@@ -108,8 +108,8 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
-                                        </div>
-                                    </div></a>
+                                        </div></a>
+                                    </div>
 
                                 </c:when>
                                 <c:otherwise>

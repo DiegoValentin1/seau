@@ -32,9 +32,8 @@ public class DaoDescuento {
                 descuento.setPor_descuento(rs.getLong("por_descuento"));
                 descuento.setFk_stock(rs.getLong("fk_stock"));
                 descuentos.add(descuento);
+                System.out.println("Descuento ID");
                 System.out.println(descuento.getID_det());
-                System.out.println(descuento.getPor_descuento());
-                System.out.println("Holaaaaaaaaaaaaaaaaaaa");
             }
         } catch (SQLException e){
             Logger.getLogger(DaoDescuento.class.getName())
@@ -79,6 +78,41 @@ public class DaoDescuento {
                     .log(Level.SEVERE, "Error save", e);
             return false;
         }finally {
+            closeConnections();
+        }
+    }
+
+    public boolean update(BeanDescuento descuento) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "UPDATE descuento SET fecha_fin = ?, por_descuento = ?, fk_stock = ? WHERE ID_det = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setDate(1, (Date) descuento.getFecha_fin());
+            pstm.setDouble(2, descuento.getPor_descuento());
+            pstm.setLong(3, descuento.getFk_stock());
+            pstm.setLong(4, descuento.getID_det());
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoDescuento.class.getName())
+                    .log(Level.SEVERE, "Error update", e);
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
+
+    public boolean delete(Long ID_det) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "DELETE FROM descuento WHERE ID_det = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1, ID_det);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoDescuento.class.getName())
+                    .log(Level.SEVERE, "Error delete method");
+            return false;
+        } finally {
             closeConnections();
         }
     }
