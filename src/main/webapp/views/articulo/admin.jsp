@@ -86,10 +86,13 @@
                                     <c:out value="${articulo.imagen}"/>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-warning">MODIFY</a>
+                                    <a href="modArt?ID=${articulo.ID}" class="btn btn-warning">MODIFY</a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-danger">DELETE</a>
+                                    <form action="delArt" method="post" onsubmit="javascript: return Validar();">
+                                        <input type="hidden" name="ID" value="${articulo.ID}">
+                                        <button type="submit" class="btn btn-danger">DELETE</button>
+                                    </form>
                                 </td>
                                 <td>
                                     <a href="addStock?ID=${articulo.ID}&n=${articulo.nombre}" class="btn btn-primary">INSERT</a>
@@ -155,10 +158,13 @@
                                     <c:out value="${stock.imagen}"/>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-warning">MODIFY</a>
+                                    <a href="modStock?ID_stk=${stock.ID_stk}&ID=${stock.fk_articulo}" class="btn btn-warning">MODIFY</a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-danger">DELETE</a>
+                                    <form action="delStock" method="post" onsubmit="javascript: return Validar();">
+                                        <input type="hidden" name="ID_stk" value="${stock.ID_stk}">
+                                        <button class="btn btn-danger">DELETE</button>
+                                    </form>
                                 </td>
                                 <td class="text-center">
                                     <a href="addDesc?ID_stk=${stock.ID_stk}" class="btn btn-primary">INSERT</a>
@@ -211,10 +217,13 @@
                                     <c:out value="${descuento.fk_stock}"/>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-warning">MODIFY</a>
+                                    <a href="modDesc?ID_stk=${descuento.fk_stock}&ID_det=${descuento.ID_det}" class="btn btn-warning">MODIFY</a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-danger">DELETE</a>
+                                    <form action="delDesc" method="post" onsubmit="javascript: return Validar();">
+                                        <input type="hidden" name="ID_det" value="${descuento.ID_det}">
+                                        <button class="btn btn-danger">DELETE</button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -226,5 +235,15 @@
     </div>
 
 </div>
+<script>
+    function Validar()
+    {
+        if (confirm('¿Esta seguro de eliminar?')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

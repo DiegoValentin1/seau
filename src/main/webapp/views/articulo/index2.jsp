@@ -56,7 +56,7 @@
                         <c:forEach var="descuento" items="${descuentos}" varStatus="status">
                             <c:forEach var="stock" items="${stocks}" varStatus="status2">
                                 <c:choose>
-                                    <c:when test='${stock.ID_stk == descuento.ID_det}'>
+                                    <c:when test='${stock.ID_stk == descuento.fk_stock}'>
                                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<c:out value="${status.index+1}"/>" aria-label="Slide <c:out value="${status.index+2}"/>"></button>
                                     </c:when>
                                     <c:otherwise>
@@ -71,7 +71,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="https://i.postimg.cc/CMPK6x0P/desc.webp" class="d-block w-100" alt="..." height="400px">
-                            <div class="carousel-caption d-none d-md-block" style="color: "><b>
+                            <div class="carousel-caption d-none d-md-block" ><b>
                                 <h4>DESCUENTOS</h4>
                                 <p>Hasta 50% de descuento en productos seleccionados por talla o color</p>
                             </b></div>

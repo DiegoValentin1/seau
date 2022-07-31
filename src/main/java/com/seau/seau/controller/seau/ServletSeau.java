@@ -96,6 +96,19 @@ public class ServletSeau extends HttpServlet {
                 case "/addDesc":
                     urlRedirect = "/views/articulo/addDesc.jsp";
                     break;
+                case "/modArt":
+                    request.setAttribute("articulos",serviceArticulo.getAll());
+                    urlRedirect = "/views/articulo/modArt.jsp";
+                    break;
+                case "/modStock":
+                    request.setAttribute("stocks", serviceStock.getAll());
+                    request.setAttribute("articulos",serviceArticulo.getAll());
+                    urlRedirect = "/views/articulo/modStock.jsp";
+                    break;
+                case "/modDesc":
+                    request.setAttribute("descuentos", serviceDescuento.getAll());
+                    urlRedirect = "/views/articulo/modDesc.jsp";
+                    break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     request.setAttribute("stocks", serviceStock.getAll());
@@ -175,6 +188,95 @@ public class ServletSeau extends HttpServlet {
                 urlRedirect = "/admin?result="+
                         result3.isResult()+"&message="+result3.getMessage()
                         +"&status="+result3.getStatus();
+                break;
+            case "/modArt":
+                String MAID = request.getParameter("ID");
+                String MAnombre = request.getParameter("nombre");
+                String MAdec1 = request.getParameter("dec1");
+                String MAdec2 = request.getParameter("dec2");
+                String MAcategoria = request.getParameter("categoria");
+                String MAimagen = request.getParameter("imagen");
+
+                BeanArticulo MAarticulo = new BeanArticulo();
+                MAarticulo.setID(Long.parseLong(MAID));
+                MAarticulo.setNombre(MAnombre);
+                MAarticulo.setDec1(MAdec1);
+                MAarticulo.setDec2(MAdec2);
+                MAarticulo.setCategoria(MAcategoria);
+                MAarticulo.setImagen(MAimagen);
+                ResultAction MAresult = serviceArticulo.update(MAarticulo);
+                urlRedirect = "/admin?result="+
+                        MAresult.isResult()+"&message="+MAresult.getMessage()
+                        +"&status="+MAresult.getStatus();
+                break;
+            case "/modStock":
+                String MSID_stk = request.getParameter("ID_stk");
+                String MStalla = request.getParameter("talla");
+                String MScolor = request.getParameter("color");
+                String MSstock = request.getParameter("stock");
+                String MSprecio = request.getParameter("precio");
+                String MSfk_articulo = request.getParameter("fk_articulo");
+                String MSimagen2 = request.getParameter("imagen");
+
+                BeanStock MSstock2 = new BeanStock();
+                MSstock2.setID_stk(Long.parseLong(MSID_stk));
+                MSstock2.setTalla(MStalla);
+                MSstock2.setColor(MScolor);
+                MSstock2.setStock(Integer.parseInt(MSstock));
+                MSstock2.setPrecio(Double.parseDouble(MSprecio));
+                MSstock2.setFk_articulo(Long.parseLong(MSfk_articulo));
+                MSstock2.setImagen(MSimagen2);
+                ResultAction MSresult2 = serviceStock.update(MSstock2);
+                urlRedirect = "/admin?result="+
+                        MSresult2.isResult()+"&message="+MSresult2.getMessage()
+                        +"&status="+MSresult2.getStatus();
+                break;
+            case "/modDesc":
+                String MDID_det = request.getParameter("ID_det");
+                String MDfecha_fin = request.getParameter("fecha_fin");
+                String MDpor_descuento = request.getParameter("por_descuento");
+                String MDfk_stock = request.getParameter("fk_stock");
+
+                BeanDescuento MDdescuento2 = new BeanDescuento();
+
+                SimpleDateFormat MDdateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                java.sql.Date MDfechaConvertida=null;
+
+                try {
+                    Date parsed =  MDdateFormat.parse(MDfecha_fin);
+                    MDfechaConvertida = new java.sql.Date(parsed.getTime());
+                } catch(Exception e) {
+                    System.out.println("Error occurred"+ e.getMessage());
+                }
+                MDdescuento2.setID_det(Long.parseLong(MDID_det));
+                MDdescuento2.setFecha_fin(MDfechaConvertida);
+                MDdescuento2.setPor_descuento(Long.parseLong(MDpor_descuento));
+                MDdescuento2.setFk_stock(Long.parseLong(MDfk_stock));
+                ResultAction MDresult3 = serviceDescuento.update(MDdescuento2);
+                urlRedirect = "/admin?result="+
+                        MDresult3.isResult()+"&message="+MDresult3.getMessage()
+                        +"&status="+MDresult3.getStatus();
+                break;
+            case "/delArt":
+                String DAID = request.getParameter("ID");
+                ResultAction DAresult3 = serviceArticulo.delete(DAID);
+                urlRedirect = "/admin?result="+
+                        DAresult3.isResult()+"&message="+DAresult3.getMessage()
+                        +"&status="+DAresult3.getStatus();
+                break;
+            case "/delStock":
+                String DSID_stk = request.getParameter("ID_stk");
+                ResultAction DSresult3 = serviceStock.delete(DSID_stk);
+                urlRedirect = "/admin?result="+
+                        DSresult3.isResult()+"&message="+DSresult3.getMessage()
+                        +"&status="+DSresult3.getStatus();
+                break;
+            case "/delDesc":
+                String DDID_det = request.getParameter("ID_det");
+                ResultAction DDresult3 = serviceDescuento.delete(DDID_det);
+                urlRedirect = "/admin?result="+
+                        DDresult3.isResult()+"&message="+DDresult3.getMessage()
+                        +"&status="+DDresult3.getStatus();
                 break;
             default:
                 urlRedirect = "/views/articulo/login.jsp";

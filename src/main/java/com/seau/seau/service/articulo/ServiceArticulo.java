@@ -56,7 +56,7 @@ public class ServiceArticulo {
         }catch (NumberFormatException e){
             result.setStatus(400);
             result.setResult(true);
-            result.setMessage("Ocurrió un error");
+            result.setMessage("Ocurrió un error N");
         }
         return result;
     }

@@ -112,14 +112,16 @@ public class DaoStock {
         }
     }
 
-    public boolean delete(Long ID_stk) {
+    public boolean delete(Long id) {
         try {
             conn = new MYSQLConnection().getConnection();
             String query = "DELETE FROM stock WHERE ID_stk = ?";
             pstm = conn.prepareStatement(query);
-            pstm.setLong(1, ID_stk);
-            return pstm.executeUpdate() == 1;
+            pstm.setLong(1, id);
+            System.out.println(pstm);
+            return pstm.executeUpdate()  == 1;
         } catch (SQLException e) {
+            System.out.println(e);
             Logger.getLogger(DaoStock.class.getName())
                     .log(Level.SEVERE, "Error delete method");
             return false;
