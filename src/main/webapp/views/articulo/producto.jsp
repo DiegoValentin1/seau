@@ -39,7 +39,7 @@
     double precio = 0, desc = 0;
     String imagen = "", color = "", talla = "";
 
-    descuento=descuentos.get(1);
+
 
     if (request.getParameter("stk")!=null){
         col=1;
@@ -125,7 +125,7 @@
     <!-- producto -->
     <div class="row my-3">
         <div class="col-1"></div>
-        <div class="col-4 text-center py-3 px-5" style="background-color: black;">
+        <div class="col-4 text-center py-3 px-5" style="background-color: white;">
             <img src="<% out.print(imagen); %>" alt="producto" style="height: 20em; margin-bottom: 1em;">
 
 
@@ -177,7 +177,7 @@
 
                 </select>
                 <input value="<% out.print(id); %>" name="id" type="hidden">
-                <button class="btn btn-outline-dark" type="submit">Verificar</button>
+                <button class="btn btn-success" type="submit">Verificar</button>
             </form>
             <h6>Existencia: <%if (contador!=0) {
                 out.print(existencia + " Ultimas piezas");

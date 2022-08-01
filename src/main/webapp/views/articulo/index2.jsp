@@ -80,27 +80,18 @@
                         <c:forEach var="stock" items="${stocks}" varStatus="status2">
                             <c:choose>
                                 <c:when test='${stock.ID_stk == descuento.fk_stock}'>
-                                    <%
-                                        ServiceStock serviceStock= new ServiceStock();
-                                        List<BeanStock> stocks = new ArrayList<>();
-                                        BeanStock stock = null;
-                                        stock = new BeanStock();
-                                        stocks=serviceStock.getAll();
-                                        stock=stocks.get(1);
-                                        stock.getFk_articulo();
 
-                                    %>
-                                    <div class="carousel-item">
-                                        <img src="https://i.ibb.co/NKvbmf5/clairo.jpg" class="d-block w-100" alt="..." height="400px">
+                                    <div class="carousel-item" >
+                                        <img src="${stock.imagen}" class="d-block w-100" alt="..." height="400px">
                                         <a href="producto?id=<c:out value="${stock.fk_articulo}"/>&stk=<c:out value="${stock.ID_stk}"/>"><div class="carousel-caption d-none d-md-block">
                                             <h5 style="color: red;" class="text-end"><del>$<c:out value="${stock.precio}"/></del></h5>
-                                            <h5 class="text-start">$<c:out value="${stock.precio-(stock.precio*descuento.por_descuento/100)}"/></h5>
+                                            <h5 class="text-start" style="color: #002B5E">$<c:out value="${stock.precio-(stock.precio*descuento.por_descuento/100)}"/></h5>
                                             <c:forEach var="articulo" items="${articulos}" varStatus="status3">
                                                 <c:choose>
                                                     <c:when test='${stock.fk_articulo == articulo.ID}'>
-                                                        <h5 class="text-start"><c:out value="${articulo.nombre}"/></h5>
-                                                        <p class="text-start"><c:out value="${stock.talla}"/>  <c:out value="${stock.color}"/></p>
-                                                        <p class="text-start"><c:out value="${articulo.dec1}"/></p>
+                                                        <h5 class="text-start" style="color: #002B5E"><c:out value="${articulo.nombre}"/></h5>
+                                                        <p class="text-start" style="color: #002B5E"><c:out value="${stock.talla}"/>  <c:out value="${stock.color}"/></p>
+                                                        <p class="text-center py-1 px-1" style="background-color: #00AC82; border-radius: 20px;"><c:out value="${articulo.dec1}"/></p>
 
                                                     </c:when>
                                                     <c:otherwise>
@@ -132,7 +123,7 @@
 
     </div>
     <!-- productos -->
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-12 text-center">
             <h1>PRODUCTOS ALEATOREOS</h1>
         </div>
@@ -142,7 +133,7 @@
             <div class="col-3 mx-5" id="">
                 <a href="producto?id=<c:out value="${articulo.ID}"/>">
                 <article class="card mx-1 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat; background-size: cover">
-                    <div class="card_content">
+                    <div class="card_content" style="min-height: 9em">
                         <h4 class="card_title"><c:out value="${articulo.nombre}"/></h4>
                         <span class="card_subtitle"></span>
                         <p class="card_description"><c:out value="${articulo.dec1}"/></p>
