@@ -121,4 +121,39 @@ public class DaoArticulo {
             closeConnections();
         }
     }
+
+    public List<BeanArticulo> buscar(String var) {
+        List<BeanArticulo> articulos = new ArrayList<>();
+        String uno="", dos="'";
+
+        try {
+
+            conn = new MYSQLConnection().getConnection();
+            String query = "SELECT * FROM articulo WHERE nombre like '%" + var + "%'";
+            pstm = conn.prepareStatement(query);
+
+            System.out.println(pstm);
+            rs = pstm.executeQuery();
+            while (rs.next()){
+                BeanArticulo articulo = new BeanArticulo();
+                articulo.setID(rs.getLong("ID"));
+                articulo.setNombre(rs.getString("nombre"));
+                articulo.setDec1(rs.getString("dec1"));
+                articulo.setDec2(rs.getString("dec2"));
+                articulo.setCategoria(rs.getString("categoria"));
+                articulo.setImagen(rs.getString("imagen"));
+                System.out.println(articulo.getImagen() + "Esta es la imagen");
+                articulos.add(articulo);
+
+            }
+            return articulos;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoArticulo.class.getName())
+                    .log(Level.SEVERE, "Error buscar", e);
+            System.out.println(e);
+            return null;
+        } finally {
+            closeConnections();
+        }
+    }
 }

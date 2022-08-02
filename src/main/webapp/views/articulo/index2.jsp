@@ -26,15 +26,15 @@
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #002B5E;">
                 <div class="container-fluid" style="text-align: left;">
                     <div class="col-2">
-                        <a class="navbar-brand" href="#" style="color: white;">Tienda Utez</a>
+                        <a class="navbar-brand" href="home" style="color: white;">Tienda UTEZ</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
                     <div class=" col-8" id="navbarSupportedContent" style="">
 
-                        <form class="d-flex" style="margin: 0">
-                            <input class="form-control me-2" style="width: 100%; margin: 0;" type="search" placeholder="Pantalon azul" aria-label="Search">
+                        <form class="d-flex" style="margin: 0" action="buscar" method="get">
+                            <input class="form-control me-2" style="width: 100%; margin: 0;" type="search" name="text" placeholder="Pantalon" aria-label="Search">
                             <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                         </form>
                     </div>
@@ -85,14 +85,20 @@
                                         <img src="${stock.imagen}" class="d-block w-100" alt="..." height="400px">
                                         <a href="producto?id=<c:out value="${stock.fk_articulo}"/>&stk=<c:out value="${stock.ID_stk}"/>"><div class="carousel-caption d-none d-md-block">
                                             <h5 style="color: red;" class="text-end"><del>$<c:out value="${stock.precio}"/></del></h5>
-                                            <h5 class="text-start" style="color: #002B5E">$<c:out value="${stock.precio-(stock.precio*descuento.por_descuento/100)}"/></h5>
-                                            <c:forEach var="articulo" items="${articulos}" varStatus="status3">
+                                            <div class="text-start">
+                                            <h5 class="text-start py-1 px-1" style="color: #002B5E; background-color: #00AC82; border-radius: 20px; display: inline">$<c:out value="${stock.precio-(stock.precio*descuento.por_descuento/100)}"/></h5>
+                                            </div>
+                                                <c:forEach var="articulo" items="${articulos}" varStatus="status3">
                                                 <c:choose>
                                                     <c:when test='${stock.fk_articulo == articulo.ID}'>
-                                                        <h5 class="text-start" style="color: #002B5E"><c:out value="${articulo.nombre}"/></h5>
-                                                        <p class="text-start" style="color: #002B5E"><c:out value="${stock.talla}"/>  <c:out value="${stock.color}"/></p>
+                                                        <br>
+                                                        <div class="text-start">
+                                                        <h5 class="text-start py-1 px-1" style="color: #002B5E; background-color: #00AC82; border-radius: 20px; display: inline"><c:out value="${articulo.nombre}"/></h5>
+                                                        <br><br>
+                                                        <p class="text-start py-1 px-1" style="color: #002B5E; background-color: #00AC82; border-radius: 20px; display: inline"><c:out value="${stock.talla}"/>  <c:out value="${stock.color}"/></p>
+                                                        <br><br>
                                                         <p class="text-center py-1 px-1" style="background-color: #00AC82; border-radius: 20px;"><c:out value="${articulo.dec1}"/></p>
-
+                                                        </div>
                                                     </c:when>
                                                     <c:otherwise>
 

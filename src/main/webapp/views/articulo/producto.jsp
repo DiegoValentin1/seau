@@ -103,15 +103,15 @@
             <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid" style="text-align: left;">
                 <div class="col-2">
-                    <a class="navbar-brand" href="#" style="color: white;">Tienda Utez</a>
+                    <a class="navbar-brand" href="home" style="color: white;">Tienda UTEZ</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
                 <div class=" col-8" id="navbarSupportedContent">
 
-                    <form class="d-flex" style="margin: 0">
-                        <input class="form-control me-2" style="width: 100%; margin: 0;" type="search" placeholder="Pantalon azul" aria-label="Search">
+                    <form class="d-flex" style="margin: 0" method="get" action="buscar">
+                        <input class="form-control me-2" style="width: 100%; margin: 0;" name="text" type="search" placeholder="Pantalon" aria-label="Search">
                         <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                     </form>
                 </div>

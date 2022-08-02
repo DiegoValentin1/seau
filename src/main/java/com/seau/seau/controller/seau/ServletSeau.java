@@ -2,6 +2,7 @@ package com.seau.seau.controller.seau;
 
 import com.seau.seau.model.administrador.BeanAdministrador;
 import com.seau.seau.model.articulo.BeanArticulo;
+import com.seau.seau.model.articulo.DaoArticulo;
 import com.seau.seau.model.descuento.BeanDescuento;
 import com.seau.seau.model.stock.BeanStock;
 import com.seau.seau.service.administrador.ServiceAdministrador;
@@ -35,7 +36,8 @@ import java.util.logging.Logger;
                 "/modDesc",
                 "/delArt",
                 "/delStock",
-                "/delDesc"
+                "/delDesc",
+                "/buscar"
         })
 
 public class ServletSeau extends HttpServlet {
@@ -47,6 +49,7 @@ public class ServletSeau extends HttpServlet {
     ServiceArticulo serviceArticulo = new ServiceArticulo();
     ServiceDescuento serviceDescuento = new ServiceDescuento();
     ServiceStock serviceStock= new ServiceStock();
+    DaoArticulo daoArticulo = new DaoArticulo();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -108,6 +111,13 @@ public class ServletSeau extends HttpServlet {
                 case "/modDesc":
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     urlRedirect = "/views/articulo/modDesc.jsp";
+                    break;
+                case "/buscar":
+                    String text = request.getParameter("text");
+                    List<BeanArticulo> articulos = daoArticulo.buscar(text);
+                    request.setAttribute("stocks", serviceStock.getAll());
+                    request.setAttribute("busqueda", articulos);
+                    urlRedirect = "/views/articulo/buscar.jsp";
                     break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
@@ -277,6 +287,12 @@ public class ServletSeau extends HttpServlet {
                 urlRedirect = "/admin?result="+
                         DDresult3.isResult()+"&message="+DDresult3.getMessage()
                         +"&status="+DDresult3.getStatus();
+                break;
+            case "/buscar":
+                String text = request.getParameter("text");
+                List<BeanArticulo> articulos = daoArticulo.buscar(text);
+                request.setAttribute("busqueda", articulos);
+                urlRedirect = "/buscar";
                 break;
             default:
                 urlRedirect = "/views/articulo/login.jsp";
