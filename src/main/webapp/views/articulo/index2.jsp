@@ -48,8 +48,8 @@
 
     <div style="margin: 0em;">
         <!-- Carrusseles -->
-        <div class="row mt-2 justify-content-center">
-            <div class="col-5">
+        <div class="row justify-content-center">
+            <div class="col" style="padding: 0">
                 <div id="carouselExampleCaptions" class="carousel slide" style="padding: 0;" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
