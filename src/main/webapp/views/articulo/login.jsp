@@ -57,7 +57,7 @@
                     <input type="password" class="form-control" name="password">
                 </div>
                 <div class="text-center mb-5">
-                    <button type="submit" class="btn btn-success">Continuar</button>
+                    <button type="submit" class="btn btn-success">Iniciar</button>
                 </div>
             </form>
         </div>

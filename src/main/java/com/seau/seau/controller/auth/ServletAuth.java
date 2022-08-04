@@ -47,9 +47,6 @@ public class ServletAuth extends HttpServlet {
                 urlRedirect = "/views/articulo/login.jsp";
                 break;
             case "/admin":
-                req.setAttribute("articulos", serviceArticulo.getAll());
-                req.setAttribute("descuentos", serviceDescuento.getAll());
-                req.setAttribute("stocks", serviceStock.getAll());
                 urlRedirect = "/views/articulo/admin.jsp";
                 break;
             default:

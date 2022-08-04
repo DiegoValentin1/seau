@@ -131,7 +131,7 @@
     <!-- productos -->
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <h1>PRODUCTOS ALEATOREOS</h1>
+            <h1>NUESTROS PRODUCTOS</h1>
         </div>
     </div>
     <div class="row my-2 px-5 py-5 justify-content-center">

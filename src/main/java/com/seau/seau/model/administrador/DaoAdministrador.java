@@ -2,6 +2,8 @@ package com.seau.seau.model.administrador;
 
 import com.seau.seau.model.articulo.BeanArticulo;
 import com.seau.seau.model.articulo.DaoArticulo;
+import com.seau.seau.model.descuento.BeanDescuento;
+import com.seau.seau.model.descuento.DaoDescuento;
 import com.seau.seau.utils.MYSQLConnection;
 
 import java.sql.*;
@@ -76,6 +78,40 @@ public class DaoAdministrador {
                     .log(Level.SEVERE, "Error save", e);
             return false;
         }finally {
+            closeConnections();
+        }
+    }
+
+    public boolean update(BeanAdministrador administrador) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "UPDATE administrador SET username = ?, password = ? WHERE id = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, administrador.getUsername());
+            pstm.setString(2, administrador.getPassword());
+            pstm.setLong(3, administrador.getId());
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoAdministrador.class.getName())
+                    .log(Level.SEVERE, "Error update", e);
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
+
+    public boolean delete(Long id) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "DELETE FROM administrador WHERE id = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1, id);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoAdministrador.class.getName())
+                    .log(Level.SEVERE, "Error delete method");
+            return false;
+        } finally {
             closeConnections();
         }
     }

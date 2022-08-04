@@ -37,7 +37,13 @@ import java.util.logging.Logger;
                 "/delArt",
                 "/delStock",
                 "/delDesc",
-                "/buscar"
+                "/buscar",
+                "/articulo",
+                "/oferta",
+                "/usuario",
+                "/modUsu",
+                "/delUsu",
+                "/addUsu"
         })
 
 public class ServletSeau extends HttpServlet {
@@ -49,6 +55,7 @@ public class ServletSeau extends HttpServlet {
     ServiceArticulo serviceArticulo = new ServiceArticulo();
     ServiceDescuento serviceDescuento = new ServiceDescuento();
     ServiceStock serviceStock= new ServiceStock();
+    ServiceAdministrador serviceAdministrador= new ServiceAdministrador();
     DaoArticulo daoArticulo = new DaoArticulo();
 
     @Override
@@ -73,23 +80,6 @@ public class ServletSeau extends HttpServlet {
                 case "/login":
                     urlRedirect = "/views/articulo/login.jsp";
                     break;
-                case "/admin":
-                    ServiceAdministrador serviceAdministrador= new ServiceAdministrador();
-                    List<BeanAdministrador> admins = new ArrayList<>();
-                    BeanAdministrador admin = new BeanAdministrador();
-                    admins=serviceAdministrador.getAll();
-                    for (BeanAdministrador ola:admins){
-                        if (ola.getUsername().equals(request.getParameter("user")) && ola.getPassword().equals(request.getParameter("pass"))){
-                            request.setAttribute("articulos", serviceArticulo.getAll());
-                            request.setAttribute("descuentos", serviceDescuento.getAll());
-                            request.setAttribute("stocks", serviceStock.getAll());
-                            urlRedirect = "/views/articulo/admin.jsp";
-                            break;
-                        }else{
-                            urlRedirect = "/views/articulo/login.jsp";
-                        }
-                    }
-                    break;
                 case "/addArt":
                     urlRedirect = "/views/articulo/addArt.jsp";
                     break;
@@ -101,6 +91,7 @@ public class ServletSeau extends HttpServlet {
                     break;
                 case "/modArt":
                     request.setAttribute("articulos",serviceArticulo.getAll());
+                    request.setAttribute("stocks", serviceStock.getAll());
                     urlRedirect = "/views/articulo/modArt.jsp";
                     break;
                 case "/modStock":
@@ -118,6 +109,20 @@ public class ServletSeau extends HttpServlet {
                     request.setAttribute("stocks", serviceStock.getAll());
                     request.setAttribute("busqueda", articulos);
                     urlRedirect = "/views/articulo/buscar.jsp";
+                    break;
+                case "/articulo":
+                    request.setAttribute("articulos",serviceArticulo.getAll());
+                    urlRedirect = "/views/articulo/articulo.jsp";
+                    break;
+                case "/usuario":
+                    request.setAttribute("usuarios",serviceAdministrador.getAll());
+                    urlRedirect = "/views/articulo/usuario.jsp";
+                    break;
+                case "/modUsu":
+                    urlRedirect = "/views/articulo/modUsu.jsp";
+                    break;
+                case "/addUsu":
+                    urlRedirect = "/views/articulo/addUsu.jsp";
                     break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
@@ -293,6 +298,38 @@ public class ServletSeau extends HttpServlet {
                 List<BeanArticulo> articulos = daoArticulo.buscar(text);
                 request.setAttribute("busqueda", articulos);
                 urlRedirect = "/buscar";
+                break;
+            case "/modUsu":
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String MUid = request.getParameter("id");
+
+                BeanAdministrador admin = new BeanAdministrador();
+                admin.setId(Long.parseLong(MUid));
+                admin.setUsername(username);
+                admin.setPassword(password);
+                ResultAction MUresult = serviceAdministrador.update(admin);
+                urlRedirect = "/admin?result="+
+                        MUresult.isResult()+"&message="+MUresult.getMessage()
+                        +"&status="+MUresult.getStatus();
+                break;
+            case "/addUsu":
+                String AUusername = request.getParameter("username");
+                String AUpassword = request.getParameter("password");
+                BeanAdministrador AUadmin = new BeanAdministrador();
+                AUadmin.setUsername(AUusername);
+                AUadmin.setPassword(AUpassword);
+                ResultAction AUresult = serviceAdministrador.save(AUadmin);
+                urlRedirect = "/admin?result="+
+                        AUresult.isResult()+"&message="+AUresult.getMessage()
+                        +"&status="+AUresult.getStatus();
+                break;
+            case "/delUsu":
+                String DUid = request.getParameter("id");
+                ResultAction DUresult = serviceAdministrador.delete(DUid);
+                urlRedirect = "/admin?result="+
+                        DUresult.isResult()+"&message="+DUresult.getMessage()
+                        +"&status="+DUresult.getStatus();
                 break;
             default:
                 urlRedirect = "/views/articulo/login.jsp";

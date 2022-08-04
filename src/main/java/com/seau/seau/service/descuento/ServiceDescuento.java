@@ -49,7 +49,7 @@ public class ServiceDescuento {
             if (daoDescuento.delete(Long.parseLong(id))){
                 result.setStatus(200);
                 result.setResult(false);
-                result.setMessage("Pokemon eliminado correctamente");
+                result.setMessage("Descuento eliminado correctamente");
             }else{
                 result.setStatus(400);
                 result.setResult(true);
