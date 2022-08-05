@@ -155,7 +155,7 @@
             <br>
             <c:forEach var="articulo" items="${articulos}" varStatus="status">
                 <c:if test="${articulo.ID==param.id}">
-                    <p><c:out value="${articulo.dec2}"/></p>
+                    <p><c:out value="${articulo.dec1}"/></p>
                 </c:if>
             </c:forEach>
             <form action="producto" style="margin-bottom: 2em;">
@@ -185,6 +185,15 @@
             } %></h6>
         </div>
         <div class="col-1"></div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-11">
+            <c:forEach var="articulo" items="${articulos}" varStatus="status">
+                <c:if test="${articulo.ID==param.id}">
+                    <p><c:out value="${articulo.dec2}"/></p>
+                </c:if>
+            </c:forEach>
+        </div>
     </div>
 </div>
 </body>

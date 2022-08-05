@@ -6,6 +6,7 @@ import com.seau.seau.model.articulo.DaoArticulo;
 import com.seau.seau.model.descuento.BeanDescuento;
 import com.seau.seau.model.stock.BeanStock;
 import com.seau.seau.service.administrador.ServiceAdministrador;
+import com.seau.seau.service.artdes.ServiceArtdes;
 import com.seau.seau.service.articulo.ServiceArticulo;
 import com.seau.seau.service.descuento.ServiceDescuento;
 import com.seau.seau.service.stock.ServiceStock;
@@ -56,6 +57,7 @@ public class ServletSeau extends HttpServlet {
     ServiceDescuento serviceDescuento = new ServiceDescuento();
     ServiceStock serviceStock= new ServiceStock();
     ServiceAdministrador serviceAdministrador= new ServiceAdministrador();
+    ServiceArtdes serviceArtdes = new ServiceArtdes();
     DaoArticulo daoArticulo = new DaoArticulo();
 
     @Override
@@ -123,6 +125,12 @@ public class ServletSeau extends HttpServlet {
                     break;
                 case "/addUsu":
                     urlRedirect = "/views/articulo/addUsu.jsp";
+                    break;
+                case "/oferta":
+                    request.setAttribute("articulos",serviceArticulo.getAll());
+                    request.setAttribute("artdeses", serviceArtdes.getAll());
+                    request.setAttribute("descuentos", serviceDescuento.getAll());
+                    urlRedirect = "/views/articulo/oferta.jsp";
                     break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
@@ -198,7 +206,7 @@ public class ServletSeau extends HttpServlet {
                 }
                 descuento2.setFecha_fin(fechaConvertida);
                 descuento2.setPor_descuento(Long.parseLong(por_descuento));
-                descuento2.setFk_stock(Long.parseLong(fk_stock));
+
                 ResultAction result3 = serviceDescuento.save(descuento2);
                 urlRedirect = "/admin?result="+
                         result3.isResult()+"&message="+result3.getMessage()
@@ -266,7 +274,7 @@ public class ServletSeau extends HttpServlet {
                 MDdescuento2.setID_det(Long.parseLong(MDID_det));
                 MDdescuento2.setFecha_fin(MDfechaConvertida);
                 MDdescuento2.setPor_descuento(Long.parseLong(MDpor_descuento));
-                MDdescuento2.setFk_stock(Long.parseLong(MDfk_stock));
+
                 ResultAction MDresult3 = serviceDescuento.update(MDdescuento2);
                 urlRedirect = "/admin?result="+
                         MDresult3.isResult()+"&message="+MDresult3.getMessage()

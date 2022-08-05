@@ -30,7 +30,9 @@ public class DaoDescuento {
                 descuento.setID_det(rs.getLong("ID_det"));
                 descuento.setFecha_fin(rs.getDate("fecha_fin"));
                 descuento.setPor_descuento(rs.getLong("por_descuento"));
-                descuento.setFk_stock(rs.getLong("fk_stock"));
+                descuento.setFecha_inicio(rs.getDate("fecha_inicio"));
+                descuento.setMensaje(rs.getString("mensaje"));
+                descuento.setImagen(rs.getString("imagen"));
                 descuentos.add(descuento);
                 System.out.println("Descuento ID");
                 System.out.println(descuento.getID_det());
@@ -66,11 +68,13 @@ public class DaoDescuento {
     public boolean save(BeanDescuento descuento){
         try {
             conn = new MYSQLConnection().getConnection();
-            String query = "INSERT INTO descuento" + "(fecha_fin, por_descuento, fk_stock)" + "VALUES (?,?,?)";
+            String query = "INSERT INTO descuento" + "(fecha_fin, por_descuento, fecha_inicio, mensaje, imagen)" + "VALUES (?,?,?,?,?)";
             pstm = conn.prepareStatement(query);
             pstm.setDate(1, (Date) descuento.getFecha_fin());
             pstm.setLong(2,descuento.getPor_descuento());
-            pstm.setLong(3,descuento.getFk_stock());
+            pstm.setDate(3, (Date) descuento.getFecha_inicio());
+            pstm.setString(4, descuento.getMensaje());
+            pstm.setString(5, descuento.getImagen());
 
             return pstm.executeUpdate() ==1;
         }catch (SQLException e){
@@ -85,12 +89,14 @@ public class DaoDescuento {
     public boolean update(BeanDescuento descuento) {
         try {
             conn = new MYSQLConnection().getConnection();
-            String query = "UPDATE descuento SET fecha_fin = ?, por_descuento = ?, fk_stock = ? WHERE ID_det = ?";
+            String query = "UPDATE descuento SET fecha_fin = ?, por_descuento = ?, fecha_inicio = ?, mensaje = ?, imagen = ? WHERE ID_det = ?";
             pstm = conn.prepareStatement(query);
             pstm.setDate(1, (Date) descuento.getFecha_fin());
             pstm.setDouble(2, descuento.getPor_descuento());
-            pstm.setLong(3, descuento.getFk_stock());
-            pstm.setLong(4, descuento.getID_det());
+            pstm.setDate(3, (Date) descuento.getFecha_inicio());
+            pstm.setString(4, descuento.getMensaje());
+            pstm.setString(5, descuento.getImagen());
+            pstm.setLong(6, descuento.getID_det());
             return pstm.executeUpdate() == 1;
         } catch (SQLException e) {
             Logger.getLogger(DaoDescuento.class.getName())

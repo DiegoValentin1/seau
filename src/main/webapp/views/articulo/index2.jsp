@@ -54,16 +54,8 @@
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                         <c:forEach var="descuento" items="${descuentos}" varStatus="status">
-                            <c:forEach var="stock" items="${stocks}" varStatus="status2">
-                                <c:choose>
-                                    <c:when test='${stock.ID_stk == descuento.fk_stock}'>
                                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<c:out value="${status.index+1}"/>" aria-label="Slide <c:out value="${status.index+2}"/>"></button>
-                                    </c:when>
-                                    <c:otherwise>
 
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
                         </c:forEach>
 
 
@@ -73,47 +65,23 @@
                             <img src="https://i.postimg.cc/CMPK6x0P/desc.webp" class="d-block w-100" alt="..." height="400px">
                             <div class="carousel-caption d-none d-md-block" ><b>
                                 <h4>DESCUENTOS</h4>
-                                <p>Hasta 50% de descuento en productos seleccionados por talla o color</p>
+                                <p>Hasta 50% de descuento en productos seleccionados</p>
                             </b></div>
                         </div>
                     <c:forEach var="descuento" items="${descuentos}" varStatus="status">
-                        <c:forEach var="stock" items="${stocks}" varStatus="status2">
-                            <c:choose>
-                                <c:when test='${stock.ID_stk == descuento.fk_stock}'>
+
 
                                     <div class="carousel-item" >
-                                        <img src="${stock.imagen}" class="d-block w-100" alt="..." height="400px">
-                                        <a href="producto?id=<c:out value="${stock.fk_articulo}"/>&stk=<c:out value="${stock.ID_stk}"/>"><div class="carousel-caption d-none d-md-block">
-                                            <h5 style="color: red;" class="text-end"><del>$<c:out value="${stock.precio}"/></del></h5>
-                                            <div class="text-start">
-                                            <h5 class="text-start py-1 px-1" style="color: #002B5E; background-color: #00AC82; border-radius: 20px; display: inline">$<c:out value="${stock.precio-(stock.precio*descuento.por_descuento/100)}"/></h5>
-                                            </div>
-                                                <c:forEach var="articulo" items="${articulos}" varStatus="status3">
-                                                <c:choose>
-                                                    <c:when test='${stock.fk_articulo == articulo.ID}'>
-                                                        <br>
-                                                        <div class="text-start">
-                                                        <h5 class="text-start py-1 px-1" style="color: #002B5E; background-color: #00AC82; border-radius: 20px; display: inline"><c:out value="${articulo.nombre}"/></h5>
-                                                        <br><br>
-                                                        <p class="text-start py-1 px-1" style="color: #002B5E; background-color: #00AC82; border-radius: 20px; display: inline"><c:out value="${stock.talla}"/>  <c:out value="${stock.color}"/></p>
-                                                        <br><br>
-                                                        <p class="text-center py-1 px-1" style="background-color: #00AC82; border-radius: 20px;"><c:out value="${articulo.dec1}"/></p>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:otherwise>
+                                        <img src="${descuento.imagen}" class="d-block w-100" alt="..." height="400px">
+                                        <a href="producto?id=<c:out value="${descuento.ID_det}"/>"><div class="carousel-caption d-none d-md-block">
+                                            <h5 class="text-center">
+                                                <c:out value="${descuento.mensaje}"/>
+                                            </h5>
 
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
                                         </div></a>
                                     </div>
 
-                                </c:when>
-                                <c:otherwise>
 
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
                     </c:forEach>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
