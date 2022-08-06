@@ -73,7 +73,7 @@
 
                                     <div class="carousel-item" >
                                         <img src="${descuento.imagen}" class="d-block w-100" alt="..." height="400px">
-                                        <a href="producto?id=<c:out value="${descuento.ID_det}"/>"><div class="carousel-caption d-none d-md-block">
+                                        <a href="banner?ID_det=<c:out value="${descuento.ID_det}"/>"><div class="carousel-caption d-none d-md-block">
                                             <h5 class="text-center">
                                                 <c:out value="${descuento.mensaje}"/>
                                             </h5>

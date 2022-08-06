@@ -43,6 +43,34 @@ public class DaoArtdes {
         }
         return artdeses;
     }
+    public List<BeanArtdes> findAll2(Long id){
+        List<BeanArtdes> artdeses = new ArrayList<>();
+        BeanArtdes artdes = null;
+
+        try{
+            conn= new MYSQLConnection().getConnection();
+            String query = "SELECT * FROM artdes WHERE fk_descuento = ?;";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1,id);
+            rs = pstm.executeQuery();
+            while (rs.next()){
+                artdes = new BeanArtdes();
+                artdes.setId(rs.getLong("id"));
+                artdes.setFk_articulo(rs.getLong("fk_articulo"));
+                artdes.setFk_descuento(rs.getLong("fk_descuento"));
+
+                artdeses.add(artdes);
+                System.out.println("Hola desde artdes fiAll2");
+                System.out.println(artdes.getId());
+            }
+        } catch (SQLException e){
+            Logger.getLogger(DaoArtdes.class.getName())
+                    .log(Level.SEVERE, "Error findAll", e);
+        }finally {
+            closeConnections();
+        }
+        return artdeses;
+    }
 
     public void closeConnections(){
         try {

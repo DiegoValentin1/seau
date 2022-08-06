@@ -47,7 +47,8 @@ import java.util.logging.Logger;
                 "/usuario",
                 "/modUsu",
                 "/delUsu",
-                "/addUsu"
+                "/addUsu",
+                "/banner"
         })
 
 public class ServletSeau extends HttpServlet {
@@ -138,6 +139,20 @@ public class ServletSeau extends HttpServlet {
                     request.setAttribute("artdeses", serviceArtdes.getAll());
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     urlRedirect = "/views/articulo/oferta.jsp";
+                    break;
+                case "/banner":
+                    long Bid_det = Long.parseLong(request.getParameter("ID_det"));
+                    List<BeanArtdes> Bartdeses = new ArrayList<>();
+                    Bartdeses= daoArtdes.findAll2(Bid_det);
+                    if (Bartdeses.size() == 1){
+                        BeanArtdes BbeanArtdes = new BeanArtdes();
+                        BbeanArtdes = Bartdeses.get(0);
+                        urlRedirect = "/producto?id="+BbeanArtdes.getFk_articulo();
+                    }else{
+                        request.setAttribute("articulos",serviceArticulo.getAll());
+                        request.setAttribute("busqueda", Bartdeses);
+                        urlRedirect = "/views/articulo/buscar2.jsp";
+                    }
                     break;
                 default:
                     request.setAttribute("descuentos", serviceDescuento.getAll());
