@@ -48,7 +48,7 @@
                             DESCUENTOS
                         </div>
                         <div class="col-6 text-end">
-                            <a href="addUsu" class="btn btn-sm btn-outline-primary"><i data-feather="plus"></i></a>
+                            <a href="addDesc" class="btn btn-sm btn-outline-primary"><i data-feather="plus"></i></a>
                         </div>
                     </div>
                 </div>

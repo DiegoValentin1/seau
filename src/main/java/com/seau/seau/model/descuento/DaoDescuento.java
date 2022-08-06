@@ -122,4 +122,26 @@ public class DaoDescuento {
             closeConnections();
         }
     }
+
+    public long max(){
+        long num = 0;
+
+        try{
+            conn= new MYSQLConnection().getConnection();
+            String query = "SELECT max(ID_det) FROM descuento;";
+            pstm = conn.prepareStatement(query);
+            rs = pstm.executeQuery();
+            while (rs.next()){
+                num = rs.getLong("max(ID_det)");
+                System.out.println("Descuento ID Max");
+                System.out.println(num);
+            }
+        } catch (SQLException e){
+            Logger.getLogger(DaoDescuento.class.getName())
+                    .log(Level.SEVERE, "Error findAll", e);
+        }finally {
+            closeConnections();
+        }
+        return num;
+    }
 }

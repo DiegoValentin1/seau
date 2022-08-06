@@ -1,9 +1,11 @@
 package com.seau.seau.controller.seau;
 
 import com.seau.seau.model.administrador.BeanAdministrador;
+import com.seau.seau.model.artdes.BeanArtdes;
 import com.seau.seau.model.articulo.BeanArticulo;
 import com.seau.seau.model.articulo.DaoArticulo;
 import com.seau.seau.model.descuento.BeanDescuento;
+import com.seau.seau.model.descuento.DaoDescuento;
 import com.seau.seau.model.stock.BeanStock;
 import com.seau.seau.service.administrador.ServiceAdministrador;
 import com.seau.seau.service.artdes.ServiceArtdes;
@@ -59,6 +61,7 @@ public class ServletSeau extends HttpServlet {
     ServiceAdministrador serviceAdministrador= new ServiceAdministrador();
     ServiceArtdes serviceArtdes = new ServiceArtdes();
     DaoArticulo daoArticulo = new DaoArticulo();
+    DaoDescuento daoDescuento = new DaoDescuento();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -89,6 +92,7 @@ public class ServletSeau extends HttpServlet {
                     urlRedirect = "/views/articulo/addStock.jsp";
                     break;
                 case "/addDesc":
+                    request.setAttribute("articulos",serviceArticulo.getAll());
                     urlRedirect = "/views/articulo/addDesc.jsp";
                     break;
                 case "/modArt":
@@ -190,8 +194,10 @@ public class ServletSeau extends HttpServlet {
                 break;
             case "/addDesc":
                 String fecha_fin = request.getParameter("fecha_fin");
+                String fecha_inicio = request.getParameter("fecha_inicio");
                 String por_descuento = request.getParameter("por_descuento");
-                String fk_stock = request.getParameter("fk_stock");
+                String ADimagen = request.getParameter("imagen");
+                String ADmensaje = request.getParameter("mensaje");
 
                 BeanDescuento descuento2 = new BeanDescuento();
 
@@ -204,10 +210,36 @@ public class ServletSeau extends HttpServlet {
                 } catch(Exception e) {
                     System.out.println("Error occurred"+ e.getMessage());
                 }
+                SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                java.sql.Date fechaConvertida2=null;
+
+                try {
+                    Date parsed =  dateFormat2.parse(fecha_inicio);
+                    fechaConvertida2 = new java.sql.Date(parsed.getTime());
+                } catch(Exception e) {
+                    System.out.println("Error occurred"+ e.getMessage());
+                }
                 descuento2.setFecha_fin(fechaConvertida);
+                descuento2.setFecha_inicio(fechaConvertida2);
                 descuento2.setPor_descuento(Long.parseLong(por_descuento));
+                descuento2.setImagen(ADimagen);
+                descuento2.setMensaje(ADmensaje);
 
                 ResultAction result3 = serviceDescuento.save(descuento2);
+                long DID = daoDescuento.max();
+                List<BeanArticulo> ADarticulos = new ArrayList<>();
+                ADarticulos=serviceArticulo.getAll();
+
+                for (BeanArticulo art: ADarticulos){
+                    if (request.getParameter(""+art.getNombre()) != null){
+                        String ADfk_art = request.getParameter(""+art.getNombre());
+                        BeanArtdes ADartdes = new BeanArtdes();
+                        ADartdes.setFk_articulo(Long.parseLong(ADfk_art));
+                        ADartdes.setFk_descuento(DID);
+                        serviceArtdes.save(ADartdes);
+                    }
+                }
+
                 urlRedirect = "/admin?result="+
                         result3.isResult()+"&message="+result3.getMessage()
                         +"&status="+result3.getStatus();
