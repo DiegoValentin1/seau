@@ -81,7 +81,7 @@
                                 <td>
                                     <c:forEach var="artdes" items="${artdeses}" varStatus="status2">
                                         <c:if test="${artdes.fk_descuento==descuento.ID_det}">
-                                            <p><c:out value="${status2.count}"/>-<c:forEach var="articulo" items="${articulos}" varStatus="status">
+                                            <p>-<c:forEach var="articulo" items="${articulos}" varStatus="status">
                                             <c:if test="${articulo.ID==artdes.fk_articulo}">
                                                 <c:out value="${articulo.nombre}"/>
                                             </c:if>

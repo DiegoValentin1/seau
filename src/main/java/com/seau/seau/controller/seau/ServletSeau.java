@@ -2,6 +2,7 @@ package com.seau.seau.controller.seau;
 
 import com.seau.seau.model.administrador.BeanAdministrador;
 import com.seau.seau.model.artdes.BeanArtdes;
+import com.seau.seau.model.artdes.DaoArtdes;
 import com.seau.seau.model.articulo.BeanArticulo;
 import com.seau.seau.model.articulo.DaoArticulo;
 import com.seau.seau.model.descuento.BeanDescuento;
@@ -62,6 +63,7 @@ public class ServletSeau extends HttpServlet {
     ServiceArtdes serviceArtdes = new ServiceArtdes();
     DaoArticulo daoArticulo = new DaoArticulo();
     DaoDescuento daoDescuento = new DaoDescuento();
+    DaoArtdes daoArtdes = new DaoArtdes();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -106,6 +108,7 @@ public class ServletSeau extends HttpServlet {
                     urlRedirect = "/views/articulo/modStock.jsp";
                     break;
                 case "/modDesc":
+                    request.setAttribute("articulos",serviceArticulo.getAll());
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     urlRedirect = "/views/articulo/modDesc.jsp";
                     break;
@@ -287,10 +290,12 @@ public class ServletSeau extends HttpServlet {
                         +"&status="+MSresult2.getStatus();
                 break;
             case "/modDesc":
-                String MDID_det = request.getParameter("ID_det");
+                long MDid_det = Long.parseLong(request.getParameter("ID_det"));
                 String MDfecha_fin = request.getParameter("fecha_fin");
+                String MDfecha_inicio = request.getParameter("fecha_inicio");
                 String MDpor_descuento = request.getParameter("por_descuento");
-                String MDfk_stock = request.getParameter("fk_stock");
+                String MDimagen = request.getParameter("imagen");
+                String MDmensaje = request.getParameter("mensaje");
 
                 BeanDescuento MDdescuento2 = new BeanDescuento();
 
@@ -303,11 +308,37 @@ public class ServletSeau extends HttpServlet {
                 } catch(Exception e) {
                     System.out.println("Error occurred"+ e.getMessage());
                 }
-                MDdescuento2.setID_det(Long.parseLong(MDID_det));
+                SimpleDateFormat MDdateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                java.sql.Date MDfechaConvertida2=null;
+
+                try {
+                    Date parsed =  MDdateFormat2.parse(MDfecha_inicio);
+                    MDfechaConvertida2 = new java.sql.Date(parsed.getTime());
+                } catch(Exception e) {
+                    System.out.println("Error occurred"+ e.getMessage());
+                }
+                MDdescuento2.setID_det(MDid_det);
                 MDdescuento2.setFecha_fin(MDfechaConvertida);
+                MDdescuento2.setFecha_inicio(MDfechaConvertida2);
                 MDdescuento2.setPor_descuento(Long.parseLong(MDpor_descuento));
+                MDdescuento2.setImagen(MDimagen);
+                MDdescuento2.setMensaje(MDmensaje);
 
                 ResultAction MDresult3 = serviceDescuento.update(MDdescuento2);
+                daoArtdes.deleteTodo(MDid_det);
+                List<BeanArticulo> MDarticulos = new ArrayList<>();
+                MDarticulos=serviceArticulo.getAll();
+
+                for (BeanArticulo art: MDarticulos){
+                    if (request.getParameter(""+art.getNombre()) != null){
+                        String ADfk_art = request.getParameter(""+art.getNombre());
+                        BeanArtdes ADartdes = new BeanArtdes();
+                        ADartdes.setFk_articulo(Long.parseLong(ADfk_art));
+                        ADartdes.setFk_descuento(MDid_det);
+                        serviceArtdes.save(ADartdes);
+                    }
+                }
+
                 urlRedirect = "/admin?result="+
                         MDresult3.isResult()+"&message="+MDresult3.getMessage()
                         +"&status="+MDresult3.getStatus();

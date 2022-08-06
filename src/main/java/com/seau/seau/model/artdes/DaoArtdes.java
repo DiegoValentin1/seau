@@ -113,4 +113,19 @@ public class DaoArtdes {
             closeConnections();
         }
     }
+    public boolean deleteTodo(Long id) {
+        try {
+            conn = new MYSQLConnection().getConnection();
+            String query = "DELETE FROM artdes WHERE fk_descuento = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1, id);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoArtdes.class.getName())
+                    .log(Level.SEVERE, "Error delete method");
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
 }

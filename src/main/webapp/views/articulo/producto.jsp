@@ -8,7 +8,9 @@
 <%@ page import="com.seau.seau.service.descuento.ServiceDescuento" %>
 <%@ page import="com.seau.seau.model.descuento.BeanDescuento" %>
 <%@ page import="static jdk.javadoc.internal.doclets.toolkit.util.DocPath.empty" %>
-<%@ page import="java.util.Objects" %><%--
+<%@ page import="java.util.Objects" %>
+<%@ page import="com.seau.seau.model.artdes.BeanArtdes" %>
+<%@ page import="com.seau.seau.service.artdes.ServiceArtdes" %><%--
   Created by IntelliJ IDEA.
   User: gupuy
   Date: 20/07/2022
@@ -27,6 +29,9 @@
     List<BeanArticulo> articulos = new ArrayList<>();
     BeanArticulo articulo = new BeanArticulo();
     articulos=serviceArticulo.getAll();
+    ServiceArtdes serviceArtdes = new ServiceArtdes();
+    List<BeanArtdes> artdeses = new ArrayList<>();
+    artdeses=serviceArtdes.getAll();
     ServiceDescuento serviceDescuento= new ServiceDescuento();
     List<BeanDescuento> descuentos = new ArrayList<>();
     BeanDescuento descuento = new BeanDescuento();
@@ -53,10 +58,12 @@
         color = stock.getColor();
         talla = stock.getTalla();
         for (BeanDescuento des: descuentos){
-            if (des.getFk_stock() == stk){
-                contador = contador + 1;
-                desc = des.getPor_descuento();
-                break;
+            for (BeanArtdes art: artdeses){
+                if (des.getID_det() == art.getFk_descuento() && art.getFk_articulo()==id){
+                    contador = contador + 1;
+                    desc = des.getPor_descuento();
+                    break;
+                }
             }
         }
     }else if(request.getParameter("stk")==null && request.getParameter("color")==null){
@@ -80,10 +87,12 @@
             }
         }
         for (BeanDescuento des: descuentos){
-            if (des.getFk_stock() == magia){
-                contador = contador + 1;
-                desc = des.getPor_descuento();
-                break;
+            for (BeanArtdes art: artdeses){
+                if (des.getID_det() == art.getFk_descuento() && art.getFk_articulo()==id){
+                    contador = contador + 1;
+                    desc = des.getPor_descuento();
+                    break;
+                }
             }
         }
     }
