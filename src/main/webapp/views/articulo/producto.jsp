@@ -68,8 +68,12 @@
         }
     }else if(request.getParameter("stk")==null && request.getParameter("color")==null){
         id=Integer.parseInt(request.getParameter("id"));
-        articulo = articulos.get(id-1);
-        imagen = articulo.getImagen();
+        for (BeanArticulo arti: articulos){
+            if (id == arti.getID()){
+                imagen = arti.getImagen();
+                break;
+            }
+        }
         precio = 0;
         existencia = 0;
     }else if(request.getParameter("color")!=null && request.getParameter("talla")!=null){
@@ -199,7 +203,7 @@
         <div class="col-11">
             <c:forEach var="articulo" items="${articulos}" varStatus="status">
                 <c:if test="${articulo.ID==param.id}">
-                    <p><c:out value="${articulo.dec2}"/></p>
+                    <p>${articulo.dec2}</p>
                 </c:if>
             </c:forEach>
         </div>

@@ -5,6 +5,7 @@
 <head>
 
     <title>Login</title>
+    <script src="https://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script>
     <link rel="stylesheet" href="estilos.css">
     <script src="https://unpkg.com/feather-icons"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -84,8 +85,7 @@
                                     </div>
                                     <div class="form-group mb-3 justify-content-center">
                                         <div class="col"><label for="height">Mensaje</label>
-                                            <input type="text" value="${descuento.mensaje}" id="height" name="mensaje" class="form-control"
-                                                   required/>
+                                            <textarea name="mensaje" id="height" cols="30" rows="10" required><c:out value="${descuento.mensaje}"/></textarea>
                                             <input type="hidden" name="ID_det" value="${param.ID_det}">
                                             <div class="invalid-feedback">
 
@@ -141,6 +141,7 @@
 
 </div>
 <script>
+    CKEDITOR.replace( 'mensaje' );
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     feather.replace()
     (function () {
@@ -178,6 +179,7 @@
             text.name = "";
         }
     }
+
 </script>
 </body>
 </html>

@@ -12,6 +12,7 @@
 <head>
 
   <title>Agregar Articulo</title>
+  <script src="https://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/views/todo/estilos.css" type="text/css">
 </head>
@@ -88,8 +89,7 @@
                     <div class="row">
                       <div class="col">
                         <label for="height">Descripción Larga</label>
-                        <input type="text" id="height" name="dec2" class="form-control"
-                               required/>
+                        <textarea name="dec2" id="height" cols="30" rows="10" required></textarea>
                         <div class="invalid-feedback">
 
                         </div>
@@ -137,7 +137,8 @@
                 form.classList.add('was-validated')
               }, false)
             })
-  })()
+  })();
+  CKEDITOR.replace( 'dec2' );
 </script>
 </body>
 </html>
