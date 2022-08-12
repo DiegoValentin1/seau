@@ -35,7 +35,7 @@
 
                         <form class="d-flex" style="margin: 0" action="buscar" method="get">
                             <input class="form-control me-2" style="width: 100%; margin: 0;" type="search" name="text" placeholder="Pantalon" aria-label="Search">
-                            <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
+                            <button class="btn btn-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                         </form>
                     </div>
                     <div class="bg-dark col-2">
@@ -104,20 +104,22 @@
             <h1>NUESTROS PRODUCTOS</h1>
         </div>
     </div>
-    <div class="row my-2 px-5 py-5 justify-content-center">
-        <c:forEach begin="0" end="5" var="articulo" items="${articulos}" varStatus="status">
-            <div class="col-3 mx-5" id="">
-                <a href="producto?id=<c:out value="${articulo.ID}"/>">
-                <article class="card mx-1 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat; background-size: cover">
-                    <div class="card_content" style="min-height: 9em">
-                        <h4 class="card_title"><c:out value="${articulo.nombre}"/></h4>
-                        <span class="card_subtitle"></span>
-                        <p class="card_description"><c:out value="${articulo.dec1}"/></p>
-                    </div>
-                </article>
-                </a>
-            </div>
-        </c:forEach>
+    <div class="row justify-content-center">
+        <div class="col-1"></div>
+        <div class="col-10" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; flex-direction: row">
+            <c:forEach begin="0" end="5" var="articulo" items="${articulos}" varStatus="status">
+                    <a href="producto?id=<c:out value="${articulo.ID}"/>" style="flex: 33.33%;">
+                        <article class="card mx-0 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat; background-size: cover; ";>
+                            <div class="card_content" style="min-height: 9em;">
+                                <h4 class="card_title"><c:out value="${articulo.nombre}"/></h4>
+                                <h6 class="card_subtitle"></h6>
+                                <p class="card_description">${articulo.dec1}</p>
+                            </div>
+                        </article>
+                    </a>
+            </c:forEach>
+        </div>
+
     </div>
 
     </div>

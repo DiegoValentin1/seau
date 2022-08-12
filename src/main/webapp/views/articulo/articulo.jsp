@@ -60,7 +60,6 @@
                         <th>Categoria</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
-                        <th>Insertar Stock</th>
                         </thead>
                         <tbody>
                         <c:forEach var="articulo" items="${articulos}" varStatus="status">
@@ -80,7 +79,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="modArt?ID=${articulo.ID}" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a>
+                                    <a href="modArt?ID=${articulo.ID}&n=${articulo.nombre}" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a>
                                 </td>
                                 <td>
                                     <form action="delArt" method="post" onsubmit="javascript: return Validar();">
@@ -89,7 +88,7 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="addStock?ID=${articulo.ID}&n=${articulo.nombre}" class="btn btn-sm btn-primary"><i data-feather="plus"></i></a>
+
                                 </td>
                             </tr>
                         </c:forEach>

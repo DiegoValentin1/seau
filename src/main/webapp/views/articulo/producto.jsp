@@ -125,7 +125,7 @@
 
                     <form class="d-flex" style="margin: 0" method="get" action="buscar">
                         <input class="form-control me-2" style="width: 100%; margin: 0;" name="text" type="search" placeholder="Pantalon" aria-label="Search">
-                        <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
+                        <button class="btn btn-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                     </form>
                 </div>
                 <div class="bg-dark col-2">

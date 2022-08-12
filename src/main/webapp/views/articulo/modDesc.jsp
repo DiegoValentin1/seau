@@ -95,16 +95,31 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Articulo</th>
-                                                <th scope="col"></th>
+                                                <th scope="col">Seleccionar Articulos</th>
+                                                <th scope="col">Selección previa</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <c:set var = "si" scope = "session" value = "${0}"/>
                                             <c:forEach var="articulo" items="${articulos}" varStatus="status">
                                                 <tr>
                                                     <th scope="row"><c:out value="${status.count}"/></th>
                                                     <td><c:out value="${articulo.nombre}"/></td>
                                                     <td><input type="checkbox" id="${articulo.nombre}" onclick="myFunction('${articulo.ID}','${articulo.nombre}')">
                                                         <input type="hidden" id="${articulo.ID}" name="" value="${articulo.ID}"></td>
+                                                    <c:forEach var="art" items="${artdeses}" varStatus="status">
+
+                                                        <c:choose>
+                                                            <c:when test="${articulo.ID==art.fk_articulo && param.ID_det == art.fk_descuento}">
+                                                                <td><input type="checkbox" id="${articulo.nombre}" checked="checked" onclick="myFunction('${articulo.ID}','${articulo.nombre}')">
+                                                                    <input type="hidden" id="${articulo.ID}" name="${articulo.nombre}" value="${articulo.ID}"></td>
+                                                            </c:when>
+                                                            <c:otherwise>
+
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
+
                                                 </tr>
                                             </c:forEach>
 

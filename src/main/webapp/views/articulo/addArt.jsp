@@ -54,14 +54,7 @@
 
                         </div>
                       </div>
-                      <div class="col">
-                        <label for="health">Descripción Corta</label>
-                        <input type="text" id="health" name="dec1" class="form-control"
-                               required/>
-                        <div class="invalid-feedback">
 
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div class="form-group mb-3">
@@ -83,6 +76,17 @@
                         </div>
                       </div>
 
+                    </div>
+                  </div>
+                  <div class="form-group mb-3">
+                    <div class="row">
+                      <div class="col">
+                        <label for="health3">Descripción Corta</label>
+                        <textarea name="dec1" id="health3" cols="30" rows="10" required></textarea>
+                        <div class="invalid-feedback">
+
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group mb-3">
@@ -139,6 +143,7 @@
             })
   })();
   CKEDITOR.replace( 'dec2' );
+  CKEDITOR.replace( 'dec1' );
 </script>
 </body>
 </html>

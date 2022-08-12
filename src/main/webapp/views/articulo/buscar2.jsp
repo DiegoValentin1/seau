@@ -38,7 +38,7 @@
                     <div class=" col-8" id="navbarSupportedContent" >
                         <form class="d-flex" style="margin-bottom: 0px;" action="buscar" method="get">
                             <input class="form-control me-2" name="text" style="width: 100%; margin: 0;" type="search" placeholder="Pantalon azul" aria-label="Search">
-                            <button class="btn btn-outline-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
+                            <button class="btn btn-success" style="background-color: #00AC82;"; type="submit">Buscar</button>
                         </form>
                     </div>
                     <div class="bg-dark col-2">
@@ -62,8 +62,8 @@
                         <c:if test="${articulo.ID==bus.fk_articulo}">
                     <a href="producto?id=<c:out value="${articulo.ID}"/>" class="mx-1">
                         <article category="${articulo.categoria}" class="card" style="background: url(${articulo.imagen}) center no-repeat; background-size: cover;">
-                            <div class="card_content">
-                                <h3 class="card_title text-start">${articulo.nombre}</h3>
+                            <div class="card_content" style="min-height: 9em">
+                                <h4 class="card_title text-start">${articulo.nombre}</h4>
                                 <span class="card_subtitle"></span>
                                 <p class="card_description text-start">${articulo.dec1}</p>
                             </div>

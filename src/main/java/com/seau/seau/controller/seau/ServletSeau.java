@@ -109,6 +109,7 @@ public class ServletSeau extends HttpServlet {
                     urlRedirect = "/views/articulo/modStock.jsp";
                     break;
                 case "/modDesc":
+                    request.setAttribute("artdeses", serviceArtdes.getAll());
                     request.setAttribute("articulos",serviceArticulo.getAll());
                     request.setAttribute("descuentos", serviceDescuento.getAll());
                     urlRedirect = "/views/articulo/modDesc.jsp";
