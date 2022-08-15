@@ -112,7 +112,7 @@
                         <article class="card mx-0 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat; background-size: cover; ";>
                             <div class="card_content" style="min-height: 9em;">
                                 <h4 class="card_title"><c:out value="${articulo.nombre}"/></h4>
-                                <h6 class="card_subtitle"></h6>
+                                <h6 class="card_subtitle">$12</h6>
                                 <p class="card_description">${articulo.dec1}</p>
                             </div>
                         </article>

@@ -8,6 +8,7 @@ public class BeanArticulo {
     private String categoria;
     private String imagen;
 
+
     public BeanArticulo() {
     }
 
@@ -19,6 +20,7 @@ public class BeanArticulo {
         this.categoria = categoria;
         this.imagen = imagen;
     }
+    public double getPrecio(Double a){return a*2;}
 
     public long getID() {
         return ID;

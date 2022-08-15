@@ -64,7 +64,13 @@
                         <article category="${articulo.categoria}" class="card" style="background: url(${articulo.imagen}) center no-repeat; background-size: cover;">
                             <div class="card_content" style="min-height: 9em">
                                 <h4 class="card_title text-start">${articulo.nombre}</h4>
-                                <span class="card_subtitle"></span>
+                                <c:set var="salary" scope="session" value="${0}"/>
+                        <c:forEach var="stock" items="${stocks}" varStatus="statusx">
+                            <c:if test="${articulo.ID==stock.fk_articulo && salary == 0}">
+                                <c:set var="salary" scope="session" value="${salary+1}"/>
+                                <span class="card_subtitle text-start">$${stock.precio}</span>
+                            </c:if>
+                        </c:forEach>
                                 <p class="card_description text-start">${articulo.dec1}</p>
                             </div>
                         </article>

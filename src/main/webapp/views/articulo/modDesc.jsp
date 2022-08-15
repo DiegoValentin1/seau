@@ -112,7 +112,7 @@
                                                         <c:choose>
                                                             <c:when test="${articulo.ID==art.fk_articulo && param.ID_det == art.fk_descuento}">
                                                                 <td><input type="checkbox" id="${articulo.nombre}" checked="checked" onclick="myFunction('${articulo.ID}','${articulo.nombre}')">
-                                                                    <input type="hidden" id="${articulo.ID}" name="${articulo.nombre}" value="${articulo.ID}"></td>
+                                                                    <input type="hidden" id="x" name="x" value="${articulo.ID}"></td>
                                                             </c:when>
                                                             <c:otherwise>
 

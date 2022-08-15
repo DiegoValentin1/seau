@@ -150,6 +150,7 @@ public class ServletSeau extends HttpServlet {
                         BbeanArtdes = Bartdeses.get(0);
                         urlRedirect = "/producto?id="+BbeanArtdes.getFk_articulo();
                     }else{
+                        request.setAttribute("stocks", serviceStock.getAll());
                         request.setAttribute("articulos",serviceArticulo.getAll());
                         request.setAttribute("busqueda", Bartdeses);
                         urlRedirect = "/views/articulo/buscar2.jsp";

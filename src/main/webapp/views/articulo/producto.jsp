@@ -40,7 +40,7 @@
 
 
     long existencia = 0;
-    int magia = 0 , contador = 0, id=0, col=0;
+    int magia = 0 , contador = 0, id=0, col=0, index=0;
     double precio = 0, desc = 0;
     String imagen = "", color = "", talla = "";
 
@@ -84,7 +84,13 @@
             if (Objects.equals(ola.getColor(), color) && Objects.equals(ola.getTalla(), talla) && ola.getFk_articulo() == id){
                 magia = Math.toIntExact(ola.getID_stk());
                 stock=stocks.get(magia-1);
-                imagen = stock.getImagen();
+                for (BeanArticulo arti: articulos){
+                    if (id == arti.getID()){
+                        imagen = arti.getImagen();
+                        break;
+                    }
+                }
+                /*imagen = stock.getImagen();*/
                 precio = stock.getPrecio();
                 existencia = stock.getStock();
                 break;
@@ -138,10 +144,49 @@
     <!-- producto -->
     <div class="row my-3">
         <div class="col-1"></div>
-        <div class="col-4 text-center py-3 px-5" style="background-color: white;">
-            <img src="<% out.print(imagen); %>" alt="producto" style="height: 20em; margin-bottom: 1em;">
+        <div class="col-4 py-3 px-2" style="background-color: white;">
+
+            <div id="carouselExampleCaptions" class="carousel slide" style="padding: 0;" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <c:forEach var="stock" items="${stocks}" varStatus="status">
+                        <c:if test="${stock.fk_articulo==param.id}">
+                            <% index=index+1; %>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<% out.print(index); %>" aria-label="Slide <% out.print(index+1); %>"></button>
+                        </c:if>
+                    </c:forEach>
 
 
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="<% out.print(imagen); %>" class="d-block w-100" alt="..." height="400px">
+                        <div class="carousel-caption d-none d-md-block" ><b>
+
+                        </b></div>
+                    </div>
+                    <c:forEach var="stock" items="${stocks}" varStatus="status">
+                        <c:if test="${stock.fk_articulo==param.id}">
+
+                        <div class="carousel-item" >
+                            <img src="${stock.imagen}" class="d-block w-100" alt="..." height="400px">
+                            <div class="carousel-caption d-none d-md-block">
+
+                            </div>
+                        </div>
+
+                        </c:if>
+                    </c:forEach>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
 
         </div>
         <div class="col-1"></div>
@@ -168,7 +213,7 @@
             <br>
             <c:forEach var="articulo" items="${articulos}" varStatus="status">
                 <c:if test="${articulo.ID==param.id}">
-                    <p><c:out value="${articulo.dec1}"/></p>
+                    <p>${articulo.dec1}</p>
                 </c:if>
             </c:forEach>
             <form action="producto" style="margin-bottom: 2em;">
@@ -206,8 +251,16 @@
                     <p>${articulo.dec2}</p>
                 </c:if>
             </c:forEach>
+
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script>
+
+    var myCarousel = document.querySelector('#myCarousel')
+    var carousel = new bootstrap.Carousel(myCarousel)
+</script>
 </body>
 </html>
