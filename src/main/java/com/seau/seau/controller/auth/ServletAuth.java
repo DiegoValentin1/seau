@@ -41,7 +41,7 @@ public class ServletAuth extends HttpServlet {
             case "/logout":
                 session = req.getSession();
                 session.invalidate();
-                urlRedirect = "/";
+                urlRedirect = "/login";
                 break;
             case "/login":
                 urlRedirect = "/views/articulo/login.jsp";
@@ -72,7 +72,7 @@ public class ServletAuth extends HttpServlet {
                     urlRedirect = "/admin";
 
                 } else {
-                    urlRedirect = "/?message=" + URLEncoder.encode(
+                    urlRedirect = "/login?message=" + URLEncoder.encode(
                             "Usuario y/o contraseña incorrectos",
                             StandardCharsets.UTF_8.name());
                 }

@@ -22,7 +22,7 @@
             <nav class="navbar navbar-expand-lg navbar-light" >
                 <div class="container-fluid" style="text-align: left;">
                     <div class="col-2">
-                        <a class="navbar-brand" href="#" style="color: white;">Tienda Utez</a>
+                        <a class="navbar-brand" href="admin" style="color: white;">Tienda Utez</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>

@@ -5,6 +5,9 @@
   Time: 06:05 p. m.
   To change this template use File | Settings | File Templates.
 --%>
+<% if(session.getAttribute("user") == null){
+    request.getRequestDispatcher("/login").forward(request, response);
+} %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -20,12 +23,14 @@
             <nav class="navbar navbar-expand-lg navbar-light" >
                 <div class="container-fluid" style="text-align: left;">
                     <div class="col-2">
-                        <a class="navbar-brand" href="#" style="color: white;">Tienda UTEZ</a>
+                        <a class="navbar-brand" href="admin" style="color: white;">Tienda UTEZ</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-
+                    <div class="col-2 text-end">
+                        <a href="logout" class="btn btn-sm btn-success">Cerrar Sesión</a>
+                    </div>
 
                 </div>
             </nav>
