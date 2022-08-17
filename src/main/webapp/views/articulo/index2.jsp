@@ -62,10 +62,10 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://i.postimg.cc/CMPK6x0P/desc.webp" class="d-block w-100" alt="..." height="400px">
+                            <img src="https://i.postimg.cc/C1fwcDCq/banner-Ropa.jpg" class="d-block w-100" alt="..." height="400px">
                             <div class="carousel-caption d-none d-md-block" ><b>
                                 <h4>DESCUENTOS</h4>
-                                <p>Hasta 50% de descuento en productos seleccionados</p>
+                                <p>Disfruta de miles de descuentos en artículos seleccionados</p>
                             </b></div>
                         </div>
                     <c:forEach var="descuento" items="${descuentos}" varStatus="status">
@@ -112,7 +112,7 @@
                         <article class="card mx-0 my-1" style="background: url(<c:out value="${articulo.imagen}"/>) center no-repeat; background-size: cover; ";>
                             <div class="card_content" style="min-height: 9em;">
                                 <h4 class="card_title"><c:out value="${articulo.nombre}"/></h4>
-                                <h6 class="card_subtitle">$12</h6>
+                                <h6 class="card_subtitle">$${articulo.getPrecio(articulo.ID)}</h6>
                                 <p class="card_description">${articulo.dec1}</p>
                             </div>
                         </article>

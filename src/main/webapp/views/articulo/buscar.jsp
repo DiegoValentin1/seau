@@ -70,7 +70,7 @@
                     <article category="${bus.categoria}" class="card" style="background: url(${bus.imagen}) center no-repeat; background-size: cover;">
                         <div class="card_content" style="min-height: 9em">
                             <h4 class="card_title text-start">${bus.nombre}</h4>
-                            <span class="card_subtitle"></span>
+                            <span class="card_subtitle text-start">$${bus.getPrecio(bus.ID)}</span>
                             <p class="card_description text-start">${bus.dec1}</p>
                         </div>
                     </article>

@@ -2,6 +2,7 @@ package com.seau.seau.model.stock;
 
 import com.seau.seau.model.articulo.BeanArticulo;
 import com.seau.seau.model.articulo.DaoArticulo;
+import com.seau.seau.model.descuento.DaoDescuento;
 import com.seau.seau.utils.MYSQLConnection;
 
 import java.sql.*;
@@ -128,5 +129,28 @@ public class DaoStock {
         } finally {
             closeConnections();
         }
+    }
+
+    public Double min(long a){
+        Double num = 0.0;
+
+        try{
+            conn= new MYSQLConnection().getConnection();
+            String query = "SELECT min(precio) FROM stock where fk_articulo = ?;";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1,a);
+            rs = pstm.executeQuery();
+            while (rs.next()){
+                num = rs.getDouble("min(precio)");
+                System.out.println("Select min");
+                System.out.println(num);
+            }
+        } catch (SQLException e){
+            Logger.getLogger(DaoDescuento.class.getName())
+                    .log(Level.SEVERE, "Error findAll", e);
+        }finally {
+            closeConnections();
+        }
+        return num;
     }
 }

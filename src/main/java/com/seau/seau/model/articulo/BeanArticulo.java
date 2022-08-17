@@ -1,5 +1,7 @@
 package com.seau.seau.model.articulo;
 
+import com.seau.seau.model.stock.DaoStock;
+
 public class BeanArticulo {
     private long ID;
     private String nombre;
@@ -20,7 +22,8 @@ public class BeanArticulo {
         this.categoria = categoria;
         this.imagen = imagen;
     }
-    public double getPrecio(Double a){return a*2;}
+    DaoStock stock = new DaoStock();
+    public Double getPrecio(long a){return stock.min(a);}
 
     public long getID() {
         return ID;
