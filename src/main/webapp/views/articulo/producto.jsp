@@ -82,8 +82,13 @@
         id = Integer.parseInt(request.getParameter("id"));
         for( BeanStock ola : stocks) {
             if (Objects.equals(ola.getColor(), color) && Objects.equals(ola.getTalla(), talla) && ola.getFk_articulo() == id){
-                magia = Math.toIntExact(ola.getID_stk());
-                stock=stocks.get(magia-1);
+                magia = Math.toIntExact(ola.getID_stk());<
+                for (BeanStock stk: stocks){
+                    if (magia == stk.getID_stk()){
+                        stock=stk;
+                        break;
+                    }
+                }
                 for (BeanArticulo arti: articulos){
                     if (id == arti.getID()){
                         imagen = arti.getImagen();

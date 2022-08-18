@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="SEAU-1.0-SNAPSHOT.war">
+    <root id="archive" name="SEAU_war_exploded.war">
       <element id="artifact" artifact-name="SEAU:war exploded" />
     </root>
   </artifact>

@@ -56,7 +56,7 @@
                 <h6>FILTRAR POR:</h6>
                 <a href="#" class="Category_item" category="all" >Todo</a>
                 <a href="#" class="Category_item" category="Playera" >Playeras</a>
-                <a href="#" class="Category_item" category="sudadera" >Sudaderas</a>
+                <a href="#" class="Category_item" category="Sudadera" >Sudaderas</a>
                 <a href="#" class="Category_item" category="Pantalon" >Pantalon</a>
                 <a href="#" class="Category_item" category="Accesorios" >Accesorios</a>
                 <a href="#" class="Category_item" category="Chaqueta" >Chaquetas</a>

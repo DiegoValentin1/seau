@@ -7,12 +7,12 @@ import java.sql.SQLException;
 public class MYSQLConnection {
     public Connection getConnection(){
         final String DBNAME = "seau",
-                USERNAME = "root",
-                PASSWORD = "root",
+                USERNAME = "usuario",
+                PASSWORD = "Admin0109_",
                 TIMEZONE = "America/Mexico_City",
                 USESSL = "false",
                 PUBLICKEY = "true";
-        String dataSource = String.format("jdbc:mysql://localhost:3306/%s?user=%s"+
+        String dataSource = String.format("jdbc:mysql://3.87.143.157:3306/%s?user=%s"+
                         "&password=%s&serverTimezone=%s&useSSL=%s&allowPublicKeyRetrieval=%s",
                 DBNAME,USERNAME,PASSWORD,TIMEZONE,USESSL,PUBLICKEY);
         try {
